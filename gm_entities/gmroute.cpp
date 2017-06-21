@@ -12,32 +12,34 @@ GMRoute::GMRoute()
     lastStopIsDestination       = false;
     //GStop stops;
     plannedArrival              = QDateTime::currentDateTime();
+    baseLineArrival             = QDateTime::currentDateTime();
     plannedDeparture            = QDateTime::currentDateTime();
-    baselineDeparture           = QDateTime::currentDateTime();
+    baseLineDeparture           = QDateTime::currentDateTime();
     projectedArrival            = QDateTime::currentDateTime();
     projectedDeparture          = QDateTime::currentDateTime();
     actualArrival               = QDateTime::currentDateTime();
     actualDeparture             = QDateTime::currentDateTime();
-    baslineDistance             = 0;
+    baseLineDistance            = 0;
     plannedDistance             = 0;
     projectedDistance           = 0;
     actualDistance              = 0;
     delayTypeID                 = 0;
     delayMinutes                = 0;
     lastContactTime             = QDateTime::currentDateTime();
-    baselineComplete            = QDateTime::currentDateTime();
+    baseLineComplete            = QDateTime::currentDateTime();
     plannedComplete             = QDateTime::currentDateTime();
     projectedComplete           = QDateTime::currentDateTime();
     actualComplete              = QDateTime::currentDateTime();
     actualStartDataQuality      = QString();
     actualDistanceQuality       = QString();
     actualDepartDataQuality     = QString();
-    baselineCost                = 0;
+    baseLineCost                = 0;
     plannedCost                 = 0;
     actualCost                  = 0;
-    baselineStart               = QDateTime::currentDateTime();
+    baseLineStart               = QDateTime::currentDateTime();
     plannedStart                = QDateTime::currentDateTime();
     projectedStart              = QDateTime::currentDateTime();
+    actualStart                 = QDateTime::currentDateTime();
     hasHelper                   = false;
     driversName                 = QString();
     //GDriverAssignment driverAssignments;
@@ -48,7 +50,7 @@ GMRoute::GMRoute()
     redeliveredStops            = 0;
     actualDepartures            = 0;
     status                      = QString();
-    travelTimeMinutes           = 0;
+    actualTravelTimeMinutes     = 0;
     plannedTravelTimeMinutes    = 0;
     baselineTravelTimeMinutes   = 0;
     hasPicture                  = false;
@@ -59,27 +61,28 @@ GMRoute::GMRoute()
                 << "description"                << "origin"
                 << "destination"                << "lastStopIsDestination"
                 << "stops"                      << "plannedArrival"
-                << "plannedDeparture"           << "baselineDeparture"
+                << "plannedDeparture"           << "baseLineDeparture"
                 << "projectedArrival"           << "projectedDeparture"
                 << "actualArrival"              << "actualDeparture"
-                << "baselineDistance"           << "plannedDistance"
+                << "baseLineDistance"           << "plannedDistance"
                 << "projectedDistance"          << "actualDistance"
                 << "delayTypeID"                << "delayMinutes"
-                << "lastContactTime"            << "baselineComplete"
+                << "lastContactTime"            << "baseLineComplete"
                 << "plannedComplete"            << "projectedComplete"
                 << "actualComplete"             << "actualStartDataQuality"
                 << "actualDistanceQuality"      << "actualDepartDataQuality"
-                << "baselineCost"               << "plannedCost"
-                << "actualCost"                 << "baselineStart"
+                << "baseLineCost"               << "plannedCost"
+                << "actualCost"                 << "baseLineStart"
                 << "plannedStart"               << "projectedStart"
                 << "hasHelper"                  << "driversName"
                 << "driverAssignments"          << "equipmentAssignments"
                 << "totalStops"                 << "canceledStops"
                 << "underliveredStops"          << "redeliveredStops"
                 << "actualDepartures"           << "status"
-                << "travelTimeMinutes"          << "plannedTravelTimeMinutes"
+                << "actualTravelTimeMinutes"    << "plannedTravelTimeMinutes"
                 << "baselineTravelTimeMinutes"  << "hasPicture"
-                << "routeHelperAssignments";
+                << "routeHelperAssignments"     << "baseLineArrival"
+                << "actualStart"                << "actualTravelTimeMinutes";
 
     setImportedMembersFalse();
 }
@@ -134,6 +137,7 @@ void GMRoute::setLastStopIsDestination(bool lastStopIsDestination)
     this->lastStopIsDestination = lastStopIsDestination;
 }
 
+
 QDateTime GMRoute::getPlannedArrival() const
 {
     return plannedArrival;
@@ -142,6 +146,16 @@ QDateTime GMRoute::getPlannedArrival() const
 void GMRoute::setPlannedArrival(const QDateTime &plannedArrival)
 {
     this->plannedArrival = plannedArrival;
+}
+
+QDateTime GMRoute::getBaseLineArrival() const
+{
+    return baseLineArrival;
+}
+
+void GMRoute::setBaseLineArrival(const QDateTime &baseLineArrival)
+{
+    this->baseLineArrival = baseLineArrival;
 }
 
 QDateTime GMRoute::getPlannedDeparture() const
@@ -154,14 +168,14 @@ void GMRoute::setPlannedDeparture(const QDateTime &plannedDeparture)
     this->plannedDeparture = plannedDeparture;
 }
 
-QDateTime GMRoute::getBaselineDeparture() const
+QDateTime GMRoute::getBaseLineDeparture() const
 {
-    return baselineDeparture;
+    return baseLineDeparture;
 }
 
-void GMRoute::setBaselineDeparture(const QDateTime &baselineDeparture)
+void GMRoute::setBaseLineDeparture(const QDateTime &baseLineDeparture)
 {
-    this->baselineDeparture = baselineDeparture;
+    this->baseLineDeparture = baseLineDeparture;
 }
 
 QDateTime GMRoute::getProjectedArrival() const
@@ -204,14 +218,14 @@ void GMRoute::setActualDeparture(const QDateTime &actualDeparture)
     this->actualDeparture = actualDeparture;
 }
 
-double GMRoute::getBaslineDistance() const
+double GMRoute::getbaseLineDistance() const
 {
-    return baslineDistance;
+    return baseLineDistance;
 }
 
-void GMRoute::setBaslineDistance(double baslineDistance)
+void GMRoute::setbaseLineDistance(double baseLineDistance)
 {
-    this->baslineDistance = baslineDistance;
+    this->baseLineDistance = baseLineDistance;
 }
 
 double GMRoute::getPlannedDistance() const
@@ -274,14 +288,14 @@ void GMRoute::setLastContactTime(const QDateTime &lastContactTime)
     this->lastContactTime = lastContactTime;
 }
 
-QDateTime GMRoute::getBaselineComplete() const
+QDateTime GMRoute::getbaseLineComplete() const
 {
-    return baselineComplete;
+    return baseLineComplete;
 }
 
-void GMRoute::setBaselineComplete(const QDateTime &baselineComplete)
+void GMRoute::setbaseLineComplete(const QDateTime &baseLineComplete)
 {
-    this->baselineComplete = baselineComplete;
+    this->baseLineComplete = baseLineComplete;
 }
 
 QDateTime GMRoute::getPlannedComplete() const
@@ -344,14 +358,14 @@ void GMRoute::setActualDepartDataQuality(const QString &actualDepartDataQuality)
     this->actualDepartDataQuality = actualDepartDataQuality;
 }
 
-double GMRoute::getBaselineCost() const
+double GMRoute::getbaseLineCost() const
 {
-    return baselineCost;
+    return baseLineCost;
 }
 
-void GMRoute::setBaselineCost(double baselineCost)
+void GMRoute::setbaseLineCost(double baseLineCost)
 {
-    this->baselineCost = baselineCost;
+    this->baseLineCost = baseLineCost;
 }
 
 double GMRoute::getPlannedCost() const
@@ -374,14 +388,14 @@ void GMRoute::setActualCost(double actualCost)
     this->actualCost = actualCost;
 }
 
-QDateTime GMRoute::getBaselineStart() const
+QDateTime GMRoute::getbaseLineStart() const
 {
-    return baselineStart;
+    return baseLineStart;
 }
 
-void GMRoute::setBaselineStart(const QDateTime &baselineStart)
+void GMRoute::setbaseLineStart(const QDateTime &baseLineStart)
 {
-    this->baselineStart = baselineStart;
+    this->baseLineStart = baseLineStart;
 }
 
 QDateTime GMRoute::getPlannedStart() const
@@ -402,6 +416,16 @@ QDateTime GMRoute::getProjectedStart() const
 void GMRoute::setProjectedStart(const QDateTime &projectedStart)
 {
     this->projectedStart = projectedStart;
+}
+
+QDateTime GMRoute::getActualStart() const
+{
+    return actualStart;
+}
+
+void GMRoute::setActualStart(const QDateTime &actualStart)
+{
+    this->actualStart = actualStart;
 }
 
 bool GMRoute::getHasHelper() const
@@ -484,32 +508,23 @@ void GMRoute::setStatus(const QString &status)
     this->status = status;
 }
 
-int GMRoute::getTravelTimeMinutes() const
-{
-    return travelTimeMinutes;
-}
 
-void GMRoute::setTravelTimeMinutes(int travelTimeMinutes)
-{
-    this->travelTimeMinutes = travelTimeMinutes;
-}
-
-int GMRoute::getPlannedTravelTimeMinites() const
+int GMRoute::getPlannedTravelTimeMinutes() const
 {
     return plannedTravelTimeMinutes;
 }
 
-void GMRoute::setPlannedTravelTimeMinites(int plannedTravelTimeMinites)
+void GMRoute::setPlannedTravelTimeMinutes(int plannedTravelTimeMinutes)
 {
-    this->plannedTravelTimeMinutes = plannedTravelTimeMinites;
+    this->plannedTravelTimeMinutes = plannedTravelTimeMinutes;
 }
 
-int GMRoute::getBaselineTravelTimeMinutes() const
+int GMRoute::getbaselineTravelTimeMinutes() const
 {
     return baselineTravelTimeMinutes;
 }
 
-void GMRoute::setBaselineTravelTimeMinutes(int baselineTravelTimeMinutes)
+void GMRoute::setbaselineTravelTimeMinutes(int baselineTravelTimeMinutes)
 {
     this->baselineTravelTimeMinutes = baselineTravelTimeMinutes;
 }
@@ -533,35 +548,35 @@ void GMRoute::read(const QJsonObject &json)
     date                        = QDate::fromString(json["date"].toString(), "yyyy-MM-dd");
     //GM_Organization organization
     description                 = json["description"].toString();
-    //GM_Location orgin;
+    //GM_Location origin;
     //GM_Location destination;
     lastStopIsDestination       = json["lastStopIsDestination"].toBool();
     //GM_Stop stops;
     plannedArrival              = QDateTime::fromString(json["plannedArrival"].toString(),      Qt::ISODateWithMs);
     plannedDeparture            = QDateTime::fromString(json["plannedDeparture"].toString(),    Qt::ISODateWithMs);
-    baselineDeparture           = QDateTime::fromString(json["baselineDeparture"].toString(),   Qt::ISODateWithMs);
+    baseLineDeparture           = QDateTime::fromString(json["baseLineDeparture"].toString(),   Qt::ISODateWithMs);
     projectedArrival            = QDateTime::fromString(json["projectedArrival"].toString(),    Qt::ISODateWithMs);
     projectedDeparture          = QDateTime::fromString(json["projectedDeparture"].toString(),  Qt::ISODateWithMs);
     actualArrival               = QDateTime::fromString(json["actualArrival"].toString(),       Qt::ISODateWithMs);
     actualDeparture             = QDateTime::fromString(json["actualDeparture"].toString(),     Qt::ISODateWithMs);
-    baslineDistance             = 0;
+    baseLineDistance             = 0;
     plannedDistance             = 0;
     projectedDistance           = 0;
     actualDistance              = 0;
     delayTypeID                 = 0;
     delayMinutes                = 0;
     lastContactTime             = QDateTime::currentDateTime();
-    baselineComplete            = QDateTime::currentDateTime();
+    baseLineComplete            = QDateTime::currentDateTime();
     plannedComplete             = QDateTime::currentDateTime();
     projectedComplete           = QDateTime::currentDateTime();
     actualComplete              = QDateTime::currentDateTime();
     actualStartDataQuality      = QString();
     actualDistanceQuality       = QString();
     actualDepartDataQuality     = QString();
-    baselineCost                = 0;
+    baseLineCost                = 0;
     plannedCost                 = 0;
     actualCost                  = 0;
-    baselineStart               = QDateTime::currentDateTime();
+    baseLineStart               = QDateTime::currentDateTime();
     plannedStart                = QDateTime::currentDateTime();
     projectedStart              = QDateTime::currentDateTime();
     hasHelper                   = false;
@@ -574,7 +589,7 @@ void GMRoute::read(const QJsonObject &json)
     redeliveredStops            = 0;
     actualDepartures            = 0;
     status                      = QString();
-    travelTimeMinutes           = 0;
+    actualTravelTimeMinutes     = 0;
     plannedTravelTimeMinutes    = 0;
     baselineTravelTimeMinutes   = 0;
     hasPicture  = true;
@@ -592,13 +607,59 @@ QJsonObject GMRoute::write()
 
     QJsonObject jTemp;
 
-
-
-    jTemp["id"] = id;
-    jTemp["key"] = key;
-    jTemp["date"] = date.toString("yyyy-MM-dd");
-    jTemp["description"] = description;
-    jTemp["plannedArrival"] = plannedArrival.toString(Qt::ISODateWithMs);
+    jTemp["id"]                             = id;
+    jTemp["key"]                            = key;
+    jTemp["date"]                           = date.toString("yyyy-MM-dd");
+    //jTemp["organization"] = ...organization;
+    //jTemp["origin"]                       = ...origin;
+    //jTemp["destination"]                  = ...destination;
+    jTemp["lastStopIsDestination"]          = lastStopIsDestination;
+    jTemp["description"]                    = description;
+    //jTemp["stops"]                        = ...stops (array)
+    jTemp["plannedArrival"]                 = plannedArrival.toString(Qt::ISODateWithMs);
+    jTemp["baseLineArrival"]                = baseLineArrival.toString(Qt::ISODateWithMs);
+    jTemp["plannedDeparture"]               = plannedDeparture.toString(Qt::ISODateWithMs);
+    jTemp["baseLineDeparture"]              = baseLineDeparture.toString(Qt::ISODateWithMs);
+    jTemp["projectedArrival"]               = projectedArrival.toString(Qt::ISODateWithMs);
+    jTemp["projectedDeparture"]             = projectedDeparture.toString(Qt::ISODateWithMs);
+    jTemp["actualArrival"]                  = actualArrival.toString(Qt::ISODateWithMs);
+    jTemp["actualDeparture"]                = actualDeparture.toString(Qt::ISODateWithMs);
+    jTemp["baseLineDistance"]               = baseLineDistance;
+    jTemp["plannedDistance"]                = plannedDistance;
+    jTemp["projectedDistance"]              = projectedDistance;
+    jTemp["actualDistance"]                 = actualDistance;
+    jTemp["delayTypeID"]                    = delayTypeID;
+    jTemp["delayMinutes"]                   = delayMinutes;
+    jTemp["lastContactTime"]                = lastContactTime.toString(Qt::ISODateWithMs);
+    jTemp["baseLineComplete"]               = baseLineComplete.toString(Qt::ISODateWithMs);
+    jTemp["plannedComplete"]                = plannedComplete.toString(Qt::ISODateWithMs);
+    jTemp["projectedComplete"]              = projectedComplete.toString(Qt::ISODateWithMs);
+    jTemp["actualComplete"]                 = actualComplete.toString(Qt::ISODateWithMs);
+    jTemp["actualStartDataQuality"]         = actualStartDataQuality;
+    jTemp["actualDistanceQuality"]          = actualDistanceQuality;
+    jTemp["actualDepartDataQuality"]        = actualDepartDataQuality;
+    jTemp["baseLineCost"]                   = baseLineCost;
+    jTemp["plannedCost"]                    = plannedCost;
+    jTemp["actualCost"]                     = actualCost;
+    jTemp["baseLineStart"]                  = baseLineStart.toString(Qt::ISODateWithMs);
+    jTemp["plannedStart"]                   = plannedStart.toString(Qt::ISODateWithMs);
+    jTemp["projectedStart"]                 = projectedStart.toString(Qt::ISODateWithMs);
+    jTemp["actualStart"]                    = actualStart.toString(Qt::ISODateWithMs);
+    jTemp["hasHelper"]                      = hasHelper;
+    jTemp["driversName"]                    = driversName;
+    //jTemp["driverAssignments"]            = driverAssignments;
+    //jTemp["equipmentAssignments"]         = equipmentAssignments;
+    jTemp["totalStops"]                     = totalStops;
+    jTemp["canceledStops"]                  = canceledStops;
+    jTemp["undeliveredStops"]               = undeliveredStops;
+    jTemp["redeliveredStops"]               = redeliveredStops;
+    jTemp["actualDepartures"]               = actualDepartures;
+    jTemp["status"]                         = status;
+    jTemp["actualTravelTimeMinutes"]        = actualTravelTimeMinutes;
+    jTemp["plannedTravelTimeMinutes"]       = plannedTravelTimeMinutes;
+    jTemp["baselineTravelTimeMinutes"]      = baselineTravelTimeMinutes;
+    jTemp["hasPicture"]                     = hasPicture;
+    //jTemp["helperAssignments"]            = helperAssignments
 
     QDateTime test = QDateTime::fromString(jTemp["dateTime"].toString(), Qt::ISODateWithMs);
     test.setTimeSpec(Qt::UTC);
@@ -609,6 +670,7 @@ QJsonObject GMRoute::write()
 
     return jTemp;
 }
+
 
 void GMRoute::compareJson(const QJsonObject &json)
 {
@@ -641,32 +703,34 @@ void GMRoute::setMembersToDefaults()
     lastStopIsDestination       = false;
     //GM_Stop stops;
     plannedArrival              = QDateTime::currentDateTime();
+    baseLineArrival             = QDateTime::currentDateTime();
     plannedDeparture            = QDateTime::currentDateTime();
-    baselineDeparture           = QDateTime::currentDateTime();
+    baseLineDeparture           = QDateTime::currentDateTime();
     projectedArrival            = QDateTime::currentDateTime();
     projectedDeparture          = QDateTime::currentDateTime();
     actualArrival               = QDateTime::currentDateTime();
     actualDeparture             = QDateTime::currentDateTime();
-    baslineDistance             = 0;
+    baseLineDistance            = 0;
     plannedDistance             = 0;
     projectedDistance           = 0;
     actualDistance              = 0;
     delayTypeID                 = 0;
     delayMinutes                = 0;
     lastContactTime             = QDateTime::currentDateTime();
-    baselineComplete            = QDateTime::currentDateTime();
+    baseLineComplete            = QDateTime::currentDateTime();
     plannedComplete             = QDateTime::currentDateTime();
     projectedComplete           = QDateTime::currentDateTime();
     actualComplete              = QDateTime::currentDateTime();
     actualStartDataQuality      = QString();
     actualDistanceQuality       = QString();
     actualDepartDataQuality     = QString();
-    baselineCost                = 0;
+    baseLineCost                = 0;
     plannedCost                 = 0;
     actualCost                  = 0;
-    baselineStart               = QDateTime::currentDateTime();
+    baseLineStart               = QDateTime::currentDateTime();
     plannedStart                = QDateTime::currentDateTime();
     projectedStart              = QDateTime::currentDateTime();
+    actualStart                 = QDateTime::currentDateTime();
     hasHelper                   = false;
     driversName                 = QString();
     //GM_DriverAssignment driverAssignments;
@@ -677,10 +741,15 @@ void GMRoute::setMembersToDefaults()
     redeliveredStops            = 0;
     actualDepartures            = 0;
     status                      = QString();
-    travelTimeMinutes           = 0;
+    actualTravelTimeMinutes     = 0;
     plannedTravelTimeMinutes    = 0;
     baselineTravelTimeMinutes   = 0;
     hasPicture                  = false;
     //GM_RouteHelperAssignment routeHelperAssignments;
     setImportedMembersFalse();
+}
+
+void GMRoute::append(const QJsonObject &json)
+{
+
 }

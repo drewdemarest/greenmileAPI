@@ -26,6 +26,12 @@ public:
     QDateTime getPlannedArrival() const;
     void setPlannedArrival(const QDateTime &plannedArrival);
 
+    QDateTime getBaseLineArrival() const;
+    void setBaseLineArrival(const QDateTime &baseLineArrival);
+
+    QDateTime getBaseLineDeparture() const;
+    void setBaseLineDeparture(const QDateTime &baseLineDeparture);
+
     QDateTime getPlannedDeparture() const;
     void setPlannedDeparture(const QDateTime &plannedDeparture);
 
@@ -44,8 +50,8 @@ public:
     QDateTime getActualDeparture() const;
     void setActualDeparture(const QDateTime &actualDeparture);
 
-    double getBaslineDistance() const;
-    void setBaslineDistance(double baslineDistance);
+    double getbaseLineDistance() const;
+    void setbaseLineDistance(double baseLineDistance);
 
     double getPlannedDistance() const;
     void setPlannedDistance(double plannedDistance);
@@ -65,8 +71,8 @@ public:
     QDateTime getLastContactTime() const;
     void setLastContactTime(const QDateTime &lastContactTime);
 
-    QDateTime getBaselineComplete() const;
-    void setBaselineComplete(const QDateTime &baselineComplete);
+    QDateTime getbaseLineComplete() const;
+    void setbaseLineComplete(const QDateTime &baseLineComplete);
 
     QDateTime getPlannedComplete() const;
     void setPlannedComplete(const QDateTime &plannedComplete);
@@ -86,8 +92,8 @@ public:
     QString getActualDepartDataQuality() const;
     void setActualDepartDataQuality(const QString &actualDepartDataQuality);
 
-    double getBaselineCost() const;
-    void setBaselineCost(double baselineCost);
+    double getbaseLineCost() const;
+    void setbaseLineCost(double baseLineCost);
 
     double getPlannedCost() const;
     void setPlannedCost(double plannedCost);
@@ -95,14 +101,17 @@ public:
     double getActualCost() const;
     void setActualCost(double actualCost);
 
-    QDateTime getBaselineStart() const;
-    void setBaselineStart(const QDateTime &baselineStart);
+    QDateTime getbaseLineStart() const;
+    void setbaseLineStart(const QDateTime &baseLineStart);
 
     QDateTime getPlannedStart() const;
     void setPlannedStart(const QDateTime &plannedStart);
 
     QDateTime getProjectedStart() const;
     void setProjectedStart(const QDateTime &projectedStart);
+
+    QDateTime getActualStart() const;
+    void setActualStart(const QDateTime &actualStart);
 
     bool getHasHelper() const;
     void setHasHelper(bool hasHelper);
@@ -128,14 +137,14 @@ public:
     QString getStatus() const;
     void setStatus(const QString &status);
 
-    int getTravelTimeMinutes() const;
-    void setTravelTimeMinutes(int travelTimeMinutes);
+    int getActualTravelTimeMinutes() const;
+    void setACtualTravelTimeMinutes(int actualTravelTimeMinutes);
 
-    int getPlannedTravelTimeMinites() const;
-    void setPlannedTravelTimeMinites(int plannedTravelTimeMinites);
+    int getPlannedTravelTimeMinutes() const;
+    void setPlannedTravelTimeMinutes(int plannedTravelTimeMinutes);
 
-    int getBaselineTravelTimeMinutes() const;
-    void setBaselineTravelTimeMinutes(int baselineTravelTimeMinutes);
+    int getbaselineTravelTimeMinutes() const;
+    void setbaselineTravelTimeMinutes(int baselineTravelTimeMinutes);
 
     bool getHasPicture() const;
     void setHasPicture(bool hasPicture);
@@ -143,6 +152,7 @@ public:
     void read(const QJsonObject &json);
     QJsonObject write();
     void setMembersToDefaults();
+    void append(const QJsonObject &json);
 
 private:
     QStringList memberList ;
@@ -158,32 +168,34 @@ private:
     bool lastStopIsDestination;
     //GM_Stop stops;
     QDateTime plannedArrival;
+    QDateTime baseLineArrival;
     QDateTime plannedDeparture;
-    QDateTime baselineDeparture;
+    QDateTime baseLineDeparture;
     QDateTime projectedArrival;
     QDateTime projectedDeparture;
     QDateTime actualArrival;
     QDateTime actualDeparture;
-    double baslineDistance;
+    double baseLineDistance;
     double plannedDistance;
     double projectedDistance;
     double actualDistance;
     int delayTypeID;
     int delayMinutes;
     QDateTime lastContactTime;
-    QDateTime baselineComplete;
+    QDateTime baseLineComplete;
     QDateTime plannedComplete;
     QDateTime projectedComplete;
     QDateTime actualComplete;
     QString actualStartDataQuality;
     QString actualDistanceQuality;
     QString actualDepartDataQuality;
-    double baselineCost;
+    double baseLineCost;
     double plannedCost;
     double actualCost;
-    QDateTime baselineStart;
+    QDateTime baseLineStart;
     QDateTime plannedStart;
     QDateTime projectedStart;
+    QDateTime actualStart;
     bool hasHelper;
     QString driversName;
     //GM_DriverAssignment driverAssignments;
@@ -194,7 +206,7 @@ private:
     int redeliveredStops;
     int actualDepartures;
     QString status;
-    int travelTimeMinutes;
+    int actualTravelTimeMinutes;
     int plannedTravelTimeMinutes;
     int baselineTravelTimeMinutes;
     bool hasPicture;

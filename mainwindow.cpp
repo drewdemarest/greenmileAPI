@@ -165,7 +165,7 @@ void MainWindow::on_pushButton_clicked() {
 
 void MainWindow::beginProcess()
 {
-    rtm->initThreads(2);
+    rtm->initThreads(1);
 }
 
 void MainWindow::displayStringList(QStringList sl)

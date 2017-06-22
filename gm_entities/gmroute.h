@@ -2,8 +2,9 @@
 #define GMROUTE_H
 
 #include <QtCore>
+#include <gm_entities/gmentity.h>
 
-class GMRoute
+class GMRoute : public GMEntity
 {
 public:
     GMRoute();
@@ -149,34 +150,6 @@ public:
     bool getHasPicture() const;
     void setHasPicture(bool hasPicture);
 
-    void setMembersToDefaults();
-
-    void read(const QJsonObject &json);
-    void append(const QJsonObject &json);
-
-    QJsonObject write();
-
-
-
-private:
-    bool routeBoolInit                      = false;
-    int routeIntInit                        = 0;
-    double routeDoubleInit                  = 0;
-    QString routeQStringInit                = QString();
-    QDate routeQDateInit                    = QDate::currentDate();
-    QDateTime routeQDateTimeInit            = QDateTime::currentDateTime();
-
-    QStringList memberList;
-
-    QMap<QString, int> routeInt;
-    QMap<QString, double> routeDouble;
-    QMap<QString, bool> routeBool;
-    QMap<QString, QString> routeQString;
-    QMap<QString, QDate> routeQDate;
-    QMap<QString, QDateTime> routeQDateTime;
-
-    QMap<QString, bool> importedMember;
-
     //GM_Organization org
     //GM_Location orgin;
     //GM_Location destination;
@@ -184,9 +157,6 @@ private:
     //GM_DriverAssignment driverAssignments;
     //GM_EquipmentAssignment equipmentAssignments;
     //GM_RouteHelperAssignment routeHelperAssignments;
-
-    void compareJson(const QJsonObject &json);
-    void setImportedMembersFalse();
 };
 
 #endif // GMROUTE_H

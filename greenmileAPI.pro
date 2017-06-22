@@ -33,7 +33,10 @@ SOURCES += main.cpp\
     threads/routeworker.cpp \
     threads/threadmanager.cpp \
     threads/worker.cpp \
-    gm_entities/gmroute.cpp
+    gm_entities/gmroute.cpp \
+    gm_entities/gmorganization.cpp \
+    gm_entities/gmentity.cpp \
+    gm_entities/gmstop.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -45,7 +48,10 @@ HEADERS  += mainwindow.h \
     threads/routeworker.h \
     threads/threadmanager.h \
     threads/worker.h \
-    gm_entities/gmroute.h
+    gm_entities/gmroute.h \
+    gm_entities/gmorganization.h \
+    gm_entities/gmentity.h \
+    gm_entities/gmstop.h
 
 
 FORMS    += mainwindow.ui \

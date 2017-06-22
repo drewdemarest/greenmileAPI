@@ -71,8 +71,8 @@ public:
     QDateTime getLastContactTime() const;
     void setLastContactTime(const QDateTime &lastContactTime);
 
-    QDateTime getbaseLineComplete() const;
-    void setbaseLineComplete(const QDateTime &baseLineComplete);
+    QDateTime getBaseLineComplete() const;
+    void setBaseLineComplete(const QDateTime &baseLineComplete);
 
     QDateTime getPlannedComplete() const;
     void setPlannedComplete(const QDateTime &plannedComplete);
@@ -86,11 +86,11 @@ public:
     QString getActualStartDataQuality() const;
     void setActualStartDataQuality(const QString &actualStartDataQuality);
 
-    QString getActualDistanceQuality() const;
-    void setActualDistanceQuality(const QString &actualDistanceQuality);
+    QString getActualDistanceDataQuality() const;
+    void setActualDistanceDataQuality(const QString &actualDistanceDataQuality);
 
     QString getActualDepartDataQuality() const;
-    void setActualDepartDataQuality(const QString &actualDepartDataQuality);
+    void setActualDepartDataQuality(const QString &actualDepartureDataQuality);
 
     double getbaseLineCost() const;
     void setbaseLineCost(double baseLineCost);
@@ -101,8 +101,8 @@ public:
     double getActualCost() const;
     void setActualCost(double actualCost);
 
-    QDateTime getbaseLineStart() const;
-    void setbaseLineStart(const QDateTime &baseLineStart);
+    QDateTime getBaseLineStart() const;
+    void setBaseLineStart(const QDateTime &baseLineStart);
 
     QDateTime getPlannedStart() const;
     void setPlannedStart(const QDateTime &plannedStart);
@@ -149,67 +149,40 @@ public:
     bool getHasPicture() const;
     void setHasPicture(bool hasPicture);
 
-    void read(const QJsonObject &json);
-    QJsonObject write();
     void setMembersToDefaults();
+
+    void read(const QJsonObject &json);
     void append(const QJsonObject &json);
 
+    QJsonObject write();
+
+
+
 private:
-    QStringList memberList ;
+    bool routeBoolInit                      = false;
+    int routeIntInit                        = 0;
+    double routeDoubleInit                  = 0;
+    QString routeQStringInit                = QString();
+    QDate routeQDateInit                    = QDate::currentDate();
+    QDateTime routeQDateTimeInit            = QDateTime::currentDateTime();
+
+    QStringList memberList;
+
+    QMap<QString, int> routeInt;
+    QMap<QString, double> routeDouble;
+    QMap<QString, bool> routeBool;
+    QMap<QString, QString> routeQString;
+    QMap<QString, QDate> routeQDate;
+    QMap<QString, QDateTime> routeQDateTime;
+
     QMap<QString, bool> importedMember;
 
-    int id;
-    QString key;
-    QDate date;
     //GM_Organization org
-    QString description;
     //GM_Location orgin;
     //GM_Location destination;
-    bool lastStopIsDestination;
     //GM_Stop stops;
-    QDateTime plannedArrival;
-    QDateTime baseLineArrival;
-    QDateTime plannedDeparture;
-    QDateTime baseLineDeparture;
-    QDateTime projectedArrival;
-    QDateTime projectedDeparture;
-    QDateTime actualArrival;
-    QDateTime actualDeparture;
-    double baseLineDistance;
-    double plannedDistance;
-    double projectedDistance;
-    double actualDistance;
-    int delayTypeID;
-    int delayMinutes;
-    QDateTime lastContactTime;
-    QDateTime baseLineComplete;
-    QDateTime plannedComplete;
-    QDateTime projectedComplete;
-    QDateTime actualComplete;
-    QString actualStartDataQuality;
-    QString actualDistanceQuality;
-    QString actualDepartDataQuality;
-    double baseLineCost;
-    double plannedCost;
-    double actualCost;
-    QDateTime baseLineStart;
-    QDateTime plannedStart;
-    QDateTime projectedStart;
-    QDateTime actualStart;
-    bool hasHelper;
-    QString driversName;
     //GM_DriverAssignment driverAssignments;
     //GM_EquipmentAssignment equipmentAssignments;
-    int totalStops;
-    int canceledStops;
-    int undeliveredStops;
-    int redeliveredStops;
-    int actualDepartures;
-    QString status;
-    int actualTravelTimeMinutes;
-    int plannedTravelTimeMinutes;
-    int baselineTravelTimeMinutes;
-    bool hasPicture;
     //GM_RouteHelperAssignment routeHelperAssignments;
 
     void compareJson(const QJsonObject &json);

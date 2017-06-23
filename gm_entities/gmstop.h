@@ -2,9 +2,8 @@
 #define GMSTOP_H
 
 #include <QtCore>
-#include <gm_entities/gmentity.h>
 
-class GMStop : public GMEntity
+class GMStop
 {
 public:
     GMStop();

@@ -35,7 +35,6 @@ SOURCES += main.cpp\
     threads/worker.cpp \
     gm_entities/gmroute.cpp \
     gm_entities/gmorganization.cpp \
-    gm_entities/gmentity.cpp \
     gm_entities/gmstop.cpp
 
 
@@ -50,7 +49,6 @@ HEADERS  += mainwindow.h \
     threads/worker.h \
     gm_entities/gmroute.h \
     gm_entities/gmorganization.h \
-    gm_entities/gmentity.h \
     gm_entities/gmstop.h
 
 

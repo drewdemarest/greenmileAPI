@@ -2,12 +2,14 @@
 #define GMROUTE_H
 
 #include <QtCore>
-#include <gm_entities/gmentity.h>
+#include <gm_entities/gmorganization.h>
 
-class GMRoute : public GMEntity
+class GMRoute
 {
 public:
     GMRoute();
+
+    //BEGIN GETTERS/SETTERS
 
     int getId() const;
     void setId(int id);
@@ -150,6 +152,15 @@ public:
     bool getHasPicture() const;
     void setHasPicture(bool hasPicture);
 
+    GMOrganization getOrganization() const;
+    void setOrganization(const GMOrganization &organization);
+
+    //BEGIN COMPUTATION FUNCTIONS
+    void importJson(const QJsonObject &json);
+    void appendJson(const QJsonObject &json);
+    QJsonObject exportJson();
+
+private:
     //GM_Organization org
     //GM_Location orgin;
     //GM_Location destination;
@@ -157,6 +168,38 @@ public:
     //GM_DriverAssignment driverAssignments;
     //GM_EquipmentAssignment equipmentAssignments;
     //GM_RouteHelperAssignment routeHelperAssignments;
+
+    //Computation subsection.
+    void compareJson(const QJsonObject &json);
+    void setMembersToDefaults();
+    void setImportedMembersFalse();
+
+    QJsonObject exportEngine();
+    void importEngine(const QJsonObject &json);
+
+    //Memeber subsection
+    bool objBoolInit                      = false;
+    int objIntInit                        = 0;
+    double objDoubleInit                  = 0;
+    QString objQStringInit                = QString();
+    QDate objQDateInit                    = QDate::currentDate();
+    QDateTime objQDateTimeInit            = QDateTime::currentDateTime();
+    GMOrganization objGMOrganizationInit  = GMOrganization();
+
+    QStringList memberList;
+
+    QMap<QString, int>              objInt;
+    QMap<QString, double>           objDouble;
+    QMap<QString, bool>             objBool;
+    QMap<QString, QString>          objQString;
+    QMap<QString, QDate>            objQDate;
+    QMap<QString, QDateTime>        objQDateTime;
+    QMap<QString, GMOrganization>   objGMOrganization;
+    //Meta member to track which members are imported
+    QMap<QString, bool>             importedMember;
+
+    //This is needed so that I can turn objects into strings.
+    QJsonDocument                   catalyst;
 };
 
 #endif // GMROUTE_H

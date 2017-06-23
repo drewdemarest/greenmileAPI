@@ -12,6 +12,7 @@ GMRoute::GMRoute()
     objInt["canceledStops"]                   = objIntInit;
     objInt["undeliveredStops"]                = objIntInit;
     objInt["redeliveredStops"]                = objIntInit;
+    objInt["actualDepartures"]                = objIntInit;
     objInt["actualDeparture"]                 = objIntInit;
     objInt["actualTravelTimeMinutes"]         = objIntInit;
     objInt["plannedTravelTimeMinutes"]        = objIntInit;
@@ -46,7 +47,7 @@ GMRoute::GMRoute()
     objQDateTime["projectedArrival"]          = objQDateTimeInit;
     objQDateTime["projectedDeparture"]        = objQDateTimeInit;
     objQDateTime["actualArrival"]             = objQDateTimeInit;
-    objQDateTime["actualDepartures"]          = objQDateTimeInit;
+    objQDateTime["actualDeparture"]           = objQDateTimeInit;
     objQDateTime["lastContactTime"]           = objQDateTimeInit;
     objQDateTime["baseLineComplete"]          = objQDateTimeInit;
     objQDateTime["plannedComplete"]           = objQDateTimeInit;

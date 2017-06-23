@@ -17,6 +17,63 @@ GMOrganization::GMOrganization()
                << objQDateTime.keys() << objGMOrganization.keys();
 }
 
+int GMOrganization::getId() const
+{
+    return objInt["id"];
+}
+void GMOrganization::setId(const int id)
+{
+    objInt["id"] = id;
+}
+
+QDateTime GMOrganization::getCreationDate() const
+{
+    return objQDateTime["creationDate"];
+}
+void GMOrganization::setCreationDate(const QDateTime &creationDate)
+{
+    objQDateTime["creationDate"] = creationDate;
+}
+
+QDateTime GMOrganization::getLastModificationDate() const
+{
+    return objQDateTime["lastModificationDate"];
+}
+void GMOrganization::setLastModificationDate(const QDateTime &lastModifcationDate)
+{
+    objQDateTime["lastModifcationDate"] = lastModifcationDate;
+}
+
+QString GMOrganization::getKey() const
+{
+    return objQString["key"];
+}
+void GMOrganization::setKey(const QString &key)
+{
+    objQString["key"] = key;
+}
+
+QString GMOrganization::getDescription() const
+{
+    return objQString["description"];
+}
+void GMOrganization::setDescription(const QString &description)
+{
+    objQString["description"] = description;
+}
+
+QString GMOrganization::getUnitSystem() const
+{
+    return objQString["unitSystem"];
+}
+void GMOrganization::setUnitSystem(const QString &unitSystem)
+{
+    objQString["unitSystem"] = unitSystem;
+}
+
+//GMLastModifier getLastModifier() const;
+//void setLastModifier(GMLastModifier &lastModifier);
+
 void GMOrganization::importJson(const QJsonObject &json)
 {
     compareJson(json);

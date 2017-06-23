@@ -37,8 +37,9 @@ void RouteWorker::process() {
     test.importJson(jTest);
 
     QJsonDocument jDoc(test.exportJson());
-
+    QTextStream(out) stdout;
     qDebug() << QString(jDoc.toJson(QJsonDocument::Indented));
+    out << QString(jDoc.toJson(QJsonDocument::Indented));
     emit routeOutput(route);
     emit finished();
 }

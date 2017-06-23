@@ -8,6 +8,31 @@ class GMOrganization
 public:
     GMOrganization();
 
+    int getId() const;
+    void setId(const int id);
+
+    QDateTime getCreationDate() const;
+    void setCreationDate(const QDateTime &creationDate);
+
+    QDateTime getLastModificationDate() const;
+    void setLastModificationDate(const QDateTime &lastModifcationDate);
+
+    QString getKey() const;
+    void setKey(const QString &key);
+
+    QString getDescription() const;
+    void setDescription(const QString &description);
+
+    QString getUnitSystem() const;
+    void setUnitSystem(const QString &unitSystem);
+
+    //GMLastModifier getLastModifier() const;
+    //void setLastModifier(GMLastModifier &lastModifier);
+
+    //GMCreator getLastCreator() const;
+    //void getLastCreator(GMCreator &creator);
+
+
     //BEGIN COMPUTATION FUNCTIONS
     void importJson(const QJsonObject &json);
     void appendJson(const QJsonObject &json);

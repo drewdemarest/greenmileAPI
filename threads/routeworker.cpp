@@ -44,6 +44,7 @@ void RouteWorker::process() {
     qDebug() << "hasPicture null? " << (false == test.getHasPicture());
     qDebug() << QString(jDoc.toJson(QJsonDocument::Indented));
     out << QString(jDoc.toJson(QJsonDocument::Indented));
+    test.setMembersNull();
     emit routeOutput(route);
     emit finished();
 }

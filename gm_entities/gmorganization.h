@@ -8,22 +8,22 @@ class GMOrganization
 public:
     GMOrganization();
 
-    int getId() const;
-    void setId(const int id);
+    int *getId() const;
+    void setId(int id);
 
-    QDateTime getCreationDate() const;
+    QDateTime *getCreationDate() const;
     void setCreationDate(const QDateTime &creationDate);
 
-    QDateTime getLastModificationDate() const;
+    QDateTime *getLastModificationDate() const;
     void setLastModificationDate(const QDateTime &lastModifcationDate);
 
-    QString getKey() const;
+    QString *getKey() const;
     void setKey(const QString &key);
 
-    QString getDescription() const;
+    QString *getDescription() const;
     void setDescription(const QString &description);
 
-    QString getUnitSystem() const;
+    QString *getUnitSystem() const;
     void setUnitSystem(const QString &unitSystem);
 
     //GMLastModifier getLastModifier() const;
@@ -49,7 +49,7 @@ private:
 
     //Computation subsection.
     void compareJson(const QJsonObject &json);
-    void setMembersToDefaults();
+    void setMembersNull();
     void setImportedMembersFalse();
 
     QJsonObject exportEngine();
@@ -57,22 +57,23 @@ private:
 
 
     //Memeber subsection
-    bool objBoolInit                      = false;
-    int objIntInit                        = 0;
-    double objDoubleInit                  = 0;
-    QString objQStringInit                = QString();
-    QDate objQDateInit                    = QDate::currentDate();
-    QDateTime objQDateTimeInit            = QDateTime::currentDateTime();
+    bool *objBoolInit                       = Q_NULLPTR;
+    int *objIntInit                         = Q_NULLPTR;
+    double *objDoubleInit                   = Q_NULLPTR;
+    QString *objQStringInit                 = Q_NULLPTR;
+    QDate *objQDateInit                     = Q_NULLPTR;
+    QDateTime *objQDateTimeInit             = Q_NULLPTR;
+    GMOrganization *objGMOrganizationInit   = Q_NULLPTR;
 
     QStringList memberList;
 
-    QMap<QString, int>              objInt;
-    QMap<QString, double>           objDouble;
-    QMap<QString, bool>             objBool;
-    QMap<QString, QString>          objQString;
-    QMap<QString, QDate>            objQDate;
-    QMap<QString, QDateTime>        objQDateTime;
-    QMap<QString, GMOrganization>   objGMOrganization;
+    QMap<QString, int*>              objInt;
+    QMap<QString, double*>           objDouble;
+    QMap<QString, bool*>             objBool;
+    QMap<QString, QString*>          objQString;
+    QMap<QString, QDate*>            objQDate;
+    QMap<QString, QDateTime*>        objQDateTime;
+    QMap<QString, GMOrganization*>   objGMOrganization;
     //Meta member to track which members are imported
     QMap<QString, bool>         importedMember;
 };

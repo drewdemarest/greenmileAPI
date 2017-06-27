@@ -8,6 +8,7 @@ GMOrganization::GMOrganization()
     objQString["lastModifierAddress"]       = objQStringInit;
     objQString["key"]                       = objQStringInit;
     objQString["description"]               = objQStringInit;
+    objGMOrganization["parentOrganization"] = objGMOrganizationInit;
 
     //objGMi18nlocale["i18nlocale"] = objGMi18nlocaleInit;
 
@@ -17,58 +18,79 @@ GMOrganization::GMOrganization()
                << objQDateTime.keys() << objGMOrganization.keys();
 }
 
-int GMOrganization::getId() const
+int *GMOrganization::getId() const
 {
     return objInt["id"];
 }
-void GMOrganization::setId(const int id)
+
+void GMOrganization::setId(int id)
 {
-    objInt["id"] = id;
+    if(objInt["id"])
+        *objInt["id"] = id;
+    else
+        objInt["id"] = new int(id);
 }
 
-QDateTime GMOrganization::getCreationDate() const
+QDateTime *GMOrganization::getCreationDate() const
 {
     return objQDateTime["creationDate"];
 }
 void GMOrganization::setCreationDate(const QDateTime &creationDate)
 {
-    objQDateTime["creationDate"] = creationDate;
+    if(objQDateTime["creationDate"])
+        *objQDateTime["creationDate"] = creationDate;
+    else
+        objQDateTime["creationDate"] = new QDateTime(creationDate);
 }
 
-QDateTime GMOrganization::getLastModificationDate() const
+QDateTime *GMOrganization::getLastModificationDate() const
 {
     return objQDateTime["lastModificationDate"];
 }
 void GMOrganization::setLastModificationDate(const QDateTime &lastModifcationDate)
 {
-    objQDateTime["lastModifcationDate"] = lastModifcationDate;
+    if(objQDateTime["lastModifcationDate"])
+        *objQDateTime["lastModifcationDate"] = lastModifcationDate;
+    else
+        objQDateTime["lastModifcationDate"] = new QDateTime(lastModifcationDate);
 }
 
-QString GMOrganization::getKey() const
+QString *GMOrganization::getKey() const
 {
     return objQString["key"];
 }
+
 void GMOrganization::setKey(const QString &key)
 {
-    objQString["key"] = key;
+    if(objQString["key"])
+        *objQString["key"] = key;
+    else
+        objQString["key"] = new QString(key);
 }
 
-QString GMOrganization::getDescription() const
+QString *GMOrganization::getDescription() const
 {
     return objQString["description"];
 }
+
 void GMOrganization::setDescription(const QString &description)
 {
-    objQString["description"] = description;
+    if(objQString["description"])
+        *objQString["description"] = description;
+    else
+        objQString["description"] = new QString(description);
 }
 
-QString GMOrganization::getUnitSystem() const
+QString *GMOrganization::getUnitSystem() const
 {
     return objQString["unitSystem"];
 }
 void GMOrganization::setUnitSystem(const QString &unitSystem)
 {
-    objQString["unitSystem"] = unitSystem;
+    if(objQString["unitSystem"])
+        *objQString["unitSystem"] = unitSystem;
+    else
+        objQString["unitSystem"] = new QString(unitSystem);
 }
 
 //GMLastModifier getLastModifier() const;
@@ -115,27 +137,43 @@ void GMOrganization::setImportedMembersFalse()
         importedMember[t] = false;
 }
 
-void GMOrganization::setMembersToDefaults()
+void GMOrganization::setMembersNull()
 {
     for(auto key : objInt.keys())
-        if(importedMember[key])
-            objInt[key] = objIntInit;
+    {
+        delete objInt[key];
+        objInt[key] = objIntInit;
+    }
 
-    for(auto key : objQDateTime.keys())
-        if(importedMember[key])
-            objQDateTime[key] = objQDateTimeInit;
+    for(auto key : objDouble.keys())
+    {
+        delete objDouble[key];
+        objDouble[key] = objDoubleInit;
+    }
 
     for(auto key : objBool.keys())
-        if(importedMember[key])
-            objBool[key] = objBoolInit;
+    {
+        delete objBool[key];
+        objBool[key] = objBoolInit;
+    }
 
     for(auto key : objQString.keys())
-        if(importedMember[key])
-            objQString[key] = objQStringInit;
+    {
+        delete objQString[key];
+        objQString[key] = objQStringInit;
+    }
 
-    for(auto key : objQDate.keys())
-        if(importedMember[key])
-            objQDate[key] = objQDateInit;
+    for(auto key : objQDateTime.keys())
+    {
+        delete objQDateTime[key];
+        objQDateTime[key] = objQDateTimeInit;
+    }
+
+    for(auto key : objGMOrganization.keys())
+    {
+        delete objGMOrganization[key];
+        objGMOrganization[key] = objGMOrganizationInit;
+    }
 
     //GOrganization org
     //GLocation orgin;
@@ -151,27 +189,80 @@ void GMOrganization::importEngine(const QJsonObject &json)
 {
     //import all valid int members
     for(auto key : objInt.keys())
+    {
         if(importedMember[key])
-            objInt[key] = json[key].toInt();
+        {
+            if(objInt[key])
+                *objInt[key] = json[key].toInt();
+
+            else
+                objInt[key] = new int(json[key].toInt());
+        }
+    }
 
     //import all valid qdatetime keys
     for(auto key : objQDateTime.keys())
+    {
         if(importedMember[key])
-            objQDateTime[key] = QDateTime::fromString
+        {
+            if(objQDateTime[key])
+                *objQDateTime[key] = QDateTime::fromString
                     (json[key].toString(), Qt::ISODateWithMs);
+            else
+                objQDateTime[key] = new QDateTime(QDateTime::fromString
+                                                  (json[key].toString(), Qt::ISODateWithMs));
+        }
+    }
 
     for(auto key : objBool.keys())
+    {
         if(importedMember[key])
-            objBool[key] = json[key].toBool();
+        {
+            if(objBool[key])
+                *objBool[key] = json[key].toBool();
+            else
+                objBool[key] = new bool(json[key].toBool());
+
+        }
+    }
 
     for(auto key : objQString.keys())
+    {
         if(importedMember[key])
-            objQString[key] = json[key].toString();
+        {
+            if(objQString[key])
+                *objQString[key] = json[key].toString();
+            else
+                objQString[key] = new QString(json[key].toString());
+        }
+    }
 
     for(auto key : objQDate.keys())
+    {
         if(importedMember[key])
-            objQDate[key] = QDate::fromString
+        {
+            if(objQDate[key])
+                *objQDate[key] = QDate::fromString
                     (json[key].toString(), "yyyy-MM-dd");
+            else
+                objQDate[key] = new QDate(QDate::fromString
+                                          (json[key].toString(), "yyyy-MM-dd"));
+        }
+    }
+
+    for(auto key : objGMOrganization.keys())
+    {
+        if(importedMember[key])
+        {
+            if(objGMOrganization[key])
+                objGMOrganization[key]->importJson(json[key].toObject());
+            else
+            {
+                objGMOrganization[key] = new GMOrganization();
+                objGMOrganization[key]->importJson(json[key].toObject());
+            }
+        }
+    }
 }
 
 QJsonObject GMOrganization::exportEngine()
@@ -180,25 +271,29 @@ QJsonObject GMOrganization::exportEngine()
 
     //import all valid int members
     for(auto key : objInt.keys())
-        if(importedMember[key])
-            json[key] = objInt[key];
+        if(importedMember[key] && objInt[key])
+            json[key] = *objInt[key];
 
     //import all valid qdatetime members
     for(auto key : objQDateTime.keys())
-        if(importedMember[key])
-            json[key] = objQDateTime[key].toString(Qt::ISODateWithMs);
+        if(importedMember[key] && objQDateTime[key])
+            json[key] = objQDateTime[key]->toString(Qt::ISODateWithMs);
 
     for(auto key : objBool.keys())
-        if(importedMember[key])
-            json[key] = objBool[key];
+        if(importedMember[key] && objBool[key])
+            json[key] = *objBool[key];
 
     for(auto key : objQString.keys())
-        if(importedMember[key])
-            json[key] = objQString[key];
+        if(importedMember[key] && objQString[key])
+            json[key] = *objQString[key];
 
     for(auto key : objQDate.keys())
-        if(importedMember[key])
-            json[key] = objQDate[key].toString("yyyy-MM-dd");
+        if(importedMember[key] && objQDate[key])
+            json[key] = objQDate[key]->toString("yyyy-MM-dd");
+
+    for(auto key : objGMOrganization.keys())
+        if(importedMember[key] && objGMOrganization[key])
+            json[key] = objGMOrganization[key]->exportJson();
 
     return json;
 }

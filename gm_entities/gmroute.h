@@ -161,6 +161,7 @@ public:
     void importJson(const QJsonObject &json);
     void appendJson(const QJsonObject &json);
     QJsonObject exportJson();
+    void setMembersNull();
 
 private:
     //GM_Organization org
@@ -173,7 +174,7 @@ private:
 
     //Computation subsection.
     void compareJson(const QJsonObject &json);
-    void setMembersNull();
+    //void setMembersNull();
     void setImportedMembersFalse();
 
     QJsonObject exportEngine();

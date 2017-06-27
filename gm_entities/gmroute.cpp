@@ -60,7 +60,6 @@ GMRoute::GMRoute()
 
     objGMOrganization["organization"]         = objGMOrganizationInit;
 
-    //GOrganization org
     //GLocation orgin;
     //GLocation destination;
     //GStop stops;
@@ -762,8 +761,8 @@ void GMRoute::compareJson(const QJsonObject &json)
         if(importedMember.contains(key))
             importedMember[key] = true;
 
-//    for(auto key : importedMember.keys())
-//        qDebug() << key << "," << importedMember[key];
+    //    for(auto key : importedMember.keys())
+    //        qDebug() << key << "," << importedMember[key];
 }
 
 //BEGIN PRIVATE FUNCTIONS
@@ -779,22 +778,40 @@ void GMRoute::setImportedMembersFalse()
 void GMRoute::setMembersNull()
 {
     for(auto key : objInt.keys())
+    {
+        delete objInt[key];
         objInt[key] = objIntInit;
+    }
 
-    for(auto key : objQDateTime.keys())
-        objQDateTime[key] = objQDateTimeInit;
+    for(auto key : objDouble.keys())
+    {
+        delete objDouble[key];
+        objDouble[key] = objDoubleInit;
+    }
 
     for(auto key : objBool.keys())
+    {
+        delete objBool[key];
         objBool[key] = objBoolInit;
+    }
 
     for(auto key : objQString.keys())
+    {
+        delete objQString[key];
         objQString[key] = objQStringInit;
+    }
 
-    for(auto key : objQDate.keys())
-        objQDate[key] = objQDateInit;
+    for(auto key : objQDateTime.keys())
+    {
+        delete objQDateTime[key];
+        objQDateTime[key] = objQDateTimeInit;
+    }
 
-    for(auto key : objQDate.keys())
+    for(auto key : objGMOrganization.keys())
+    {
+        delete objGMOrganization[key];
         objGMOrganization[key] = objGMOrganizationInit;
+    }
 
     //GOrganization org
     //GLocation orgin;

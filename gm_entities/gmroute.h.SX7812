@@ -2,6 +2,7 @@
 #define GMROUTE_H
 
 #include <QtCore>
+#include <gm_entities/gmorganization.h>
 
 class GMRoute
 {
@@ -10,151 +11,155 @@ public:
 
     //BEGIN GETTERS/SETTERS
 
-    int getId() const;
+    int *getId() const;
     void setId(int id);
 
-    QString getKey() const;
+    QString *getKey() const;
     void setKey(const QString &key);
 
-    QString getDescription() const;
+    QString *getDescription() const;
     void setDescription(const QString &description);
 
-    QDate getDate() const;
+    QDate *getDate() const;
     void setDate(const QDate &date);
 
-    bool getLastStopIsDestination() const;
+    bool *getLastStopIsDestination() const;
     void setLastStopIsDestination(bool lastStopIsDestination);
 
-    QDateTime getPlannedArrival() const;
+    QDateTime *getPlannedArrival() const;
     void setPlannedArrival(const QDateTime &plannedArrival);
 
-    QDateTime getBaseLineArrival() const;
+    QDateTime *getBaseLineArrival() const;
     void setBaseLineArrival(const QDateTime &baseLineArrival);
 
-    QDateTime getBaseLineDeparture() const;
+    QDateTime *getBaseLineDeparture() const;
     void setBaseLineDeparture(const QDateTime &baseLineDeparture);
 
-    QDateTime getPlannedDeparture() const;
+    QDateTime *getPlannedDeparture() const;
     void setPlannedDeparture(const QDateTime &plannedDeparture);
 
-    QDateTime getBaselineDeparture() const;
+    QDateTime *getBaselineDeparture() const;
     void setBaselineDeparture(const QDateTime &baselineDeparture);
 
-    QDateTime getProjectedArrival() const;
+    QDateTime *getProjectedArrival() const;
     void setProjectedArrival(const QDateTime &projectedArrival);
 
-    QDateTime getProjectedDeparture() const;
+    QDateTime *getProjectedDeparture() const;
     void setProjectedDeparture(const QDateTime &projectedDeparture);
 
-    QDateTime getActualArrival() const;
+    QDateTime *getActualArrival() const;
     void setActualArrival(const QDateTime &actualArrival);
 
-    QDateTime getActualDeparture() const;
+    QDateTime *getActualDeparture() const;
     void setActualDeparture(const QDateTime &actualDeparture);
 
-    double getbaseLineDistance() const;
+    double *getbaseLineDistance() const;
     void setbaseLineDistance(double baseLineDistance);
 
-    double getPlannedDistance() const;
+    double *getPlannedDistance() const;
     void setPlannedDistance(double plannedDistance);
 
-    double getProjectedDistance() const;
+    double *getProjectedDistance() const;
     void setProjectedDistance(double projectedDistance);
 
-    double getActualDistance() const;
+    double *getActualDistance() const;
     void setActualDistance(double actualDistance);
 
-    int getDelayTypeID() const;
+    int *getDelayTypeID() const;
     void setDelayTypeID(int delayTypeID);
 
-    int getDelayMinutes() const;
+    int *getDelayMinutes() const;
     void setDelayMinutes(int delayMinutes);
 
-    QDateTime getLastContactTime() const;
+    QDateTime *getLastContactTime() const;
     void setLastContactTime(const QDateTime &lastContactTime);
 
-    QDateTime getBaseLineComplete() const;
+    QDateTime *getBaseLineComplete() const;
     void setBaseLineComplete(const QDateTime &baseLineComplete);
 
-    QDateTime getPlannedComplete() const;
+    QDateTime *getPlannedComplete() const;
     void setPlannedComplete(const QDateTime &plannedComplete);
 
-    QDateTime getProjectedComplete() const;
+    QDateTime *getProjectedComplete() const;
     void setProjectedComplete(const QDateTime &projectedComplete);
 
-    QDateTime getActualComplete() const;
+    QDateTime *getActualComplete() const;
     void setActualComplete(const QDateTime &actualComplete);
 
-    QString getActualStartDataQuality() const;
+    QString *getActualStartDataQuality() const;
     void setActualStartDataQuality(const QString &actualStartDataQuality);
 
-    QString getActualDistanceDataQuality() const;
+    QString *getActualDistanceDataQuality() const;
     void setActualDistanceDataQuality(const QString &actualDistanceDataQuality);
 
-    QString getActualDepartDataQuality() const;
+    QString *getActualDepartDataQuality() const;
     void setActualDepartDataQuality(const QString &actualDepartureDataQuality);
 
-    double getbaseLineCost() const;
+    double *getbaseLineCost() const;
     void setbaseLineCost(double baseLineCost);
 
-    double getPlannedCost() const;
+    double *getPlannedCost() const;
     void setPlannedCost(double plannedCost);
 
-    double getActualCost() const;
+    double *getActualCost() const;
     void setActualCost(double actualCost);
 
-    QDateTime getBaseLineStart() const;
+    QDateTime *getBaseLineStart() const;
     void setBaseLineStart(const QDateTime &baseLineStart);
 
-    QDateTime getPlannedStart() const;
+    QDateTime *getPlannedStart() const;
     void setPlannedStart(const QDateTime &plannedStart);
 
-    QDateTime getProjectedStart() const;
+    QDateTime *getProjectedStart() const;
     void setProjectedStart(const QDateTime &projectedStart);
 
-    QDateTime getActualStart() const;
+    QDateTime *getActualStart() const;
     void setActualStart(const QDateTime &actualStart);
 
-    bool getHasHelper() const;
+    bool *getHasHelper() const;
     void setHasHelper(bool hasHelper);
 
-    QString getDriversName() const;
+    QString *getDriversName() const;
     void setDriversName(const QString &driversName);
 
-    int getTotalStops() const;
+    int *getTotalStops() const;
     void setTotalStops(int totalStops);
 
-    int getCanceledStops() const;
+    int *getCanceledStops() const;
     void setCanceledStops(int canceledStops);
 
-    int getUndeliveredStops() const;
+    int *getUndeliveredStops() const;
     void setUndeliveredStops(int undeliveredStops);
 
-    int getRedeliveredStops() const;
+    int *getRedeliveredStops() const;
     void setRedeliveredStops(int redeliveredStops);
 
-    int getActualDepartures() const;
+    int *getActualDepartures() const;
     void setActualDepartures(int actualDepartures);
 
-    QString getStatus() const;
+    QString *getStatus() const;
     void setStatus(const QString &status);
 
-    int getActualTravelTimeMinutes() const;
+    int *getActualTravelTimeMinutes() const;
     void setACtualTravelTimeMinutes(int actualTravelTimeMinutes);
 
-    int getPlannedTravelTimeMinutes() const;
+    int *getPlannedTravelTimeMinutes() const;
     void setPlannedTravelTimeMinutes(int plannedTravelTimeMinutes);
 
-    int getbaselineTravelTimeMinutes() const;
+    int *getbaselineTravelTimeMinutes() const;
     void setbaselineTravelTimeMinutes(int baselineTravelTimeMinutes);
 
-    bool getHasPicture() const;
+    bool *getHasPicture() const;
     void setHasPicture(bool hasPicture);
 
+    GMOrganization *getOrganization() const;
+    void setOrganization(const GMOrganization &organization);
+
     //BEGIN COMPUTATION FUNCTIONS
-    void read(const QJsonObject &json);
-    void append(const QJsonObject &json);
-    QJsonObject write();
+    void importJson(const QJsonObject &json);
+    void appendJson(const QJsonObject &json);
+    QJsonObject exportJson();
+
 private:
     //GM_Organization org
     //GM_Location orgin;
@@ -168,8 +173,9 @@ private:
     void compareJson(const QJsonObject &json);
     void setMembersToDefaults();
     void setImportedMembersFalse();
-    QJsonObject writeEngine();
-    QJsonObject readEngine();
+
+    QJsonObject exportEngine();
+    void importEngine(const QJsonObject &json);
 
     //Memeber subsection
     bool objBoolInit                      = false;
@@ -178,17 +184,22 @@ private:
     QString objQStringInit                = QString();
     QDate objQDateInit                    = QDate::currentDate();
     QDateTime objQDateTimeInit            = QDateTime::currentDateTime();
+    GMOrganization objGMOrganizationInit  = GMOrganization();
 
     QStringList memberList;
 
-    QMap<QString, int>          objInt;
-    QMap<QString, double>       objDouble;
-    QMap<QString, bool>         objBool;
-    QMap<QString, QString>      objQString;
-    QMap<QString, QDate>        objQDate;
-    QMap<QString, QDateTime>    objQDateTime;
+    QMap<QString, int>              objInt;
+    QMap<QString, double>           objDouble;
+    QMap<QString, bool>             objBool;
+    QMap<QString, QString>          objQString;
+    QMap<QString, QDate>            objQDate;
+    QMap<QString, QDateTime>        objQDateTime;
+    QMap<QString, GMOrganization>   objGMOrganization;
     //Meta member to track which members are imported
-    QMap<QString, bool>         importedMember;
+    QMap<QString, bool>             importedMember;
+
+    //This is needed so that I can turn objects into strings.
+    QJsonDocument                   catalyst;
 };
 
 #endif // GMROUTE_H

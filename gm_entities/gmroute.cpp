@@ -73,471 +73,659 @@ GMRoute::GMRoute()
                << objBool.keys()      << objQDateTime.keys()
                << objQDateTime.keys() << objGMOrganization.keys();
 
-    qDebug() << memberList.size() << "memberList";
+    //qDebug() << memberList.size() << "memberList";
 }
 
+GMRoute::~GMRoute()
+{
+    delete objBoolInit;
+    delete objIntInit;
+    delete objDoubleInit;
+    delete objQStringInit;
+    delete objQDateInit;
+    delete objQDateTimeInit;
+    delete objGMOrganizationInit;
+
+    qDeleteAll(objInt);
+    objInt.clear();
+
+    qDeleteAll(objDouble);
+    objDouble.clear();
+
+    qDeleteAll(objBool);
+    objBool.clear();
+
+    qDeleteAll(objQString);
+    objQString.clear();
+
+    qDeleteAll(objQDate);
+    objQDate.clear();
+
+    qDeleteAll(objQDateTime);
+    objQDateTime.clear();
+
+    qDeleteAll(objGMOrganization);
+    objGMOrganization.clear();
+}
 
 //BEGIN GETTERS/SETTERS
 
-int GMRoute::getId() const
+int *GMRoute::getId() const
 {
     return objInt["id"];
 }
 
 void GMRoute::setId(int id)
 {
-    objInt["id"] = id;
+    if(objInt["id"])
+        *objInt["id"] = id;
+    else
+        objInt["id"] = new int(id);
 }
 
-QString GMRoute::getKey() const
+QString *GMRoute::getKey() const
 {
     return objQString["key"];
 }
 
 void GMRoute::setKey(const QString &key)
 {
-    objQString["key"] = key;
+    if(objQString["key"])
+        *objQString["key"] = key;
+    else
+        objQString["key"] = new QString(key);
 }
 
-QString GMRoute::getDescription() const
+QString *GMRoute::getDescription() const
 {
     return objQString["description"];
 }
 
 void GMRoute::setDescription(const QString &description)
 {
-    objQString["description"] = description;
+    if(objQString["description"])
+        *objQString["description"] = description;
+    else
+        objQString["description"] = new QString(description);
 }
 
-QDate GMRoute::getDate() const
+QDate *GMRoute::getDate() const
 {
     return objQDate["date"];
 }
 
 void GMRoute::setDate(const QDate &date)
 {
-    objQDate["date"] = date;
+    if(objQString["date"])
+        *objQDate["date"] = date;
+    else
+        objQDate["date"] = new QDate(date);
 }
 
-bool GMRoute::getLastStopIsDestination() const
+bool *GMRoute::getLastStopIsDestination() const
 {
     return objBool["lastStopIsDestination"];
 }
 
 void GMRoute::setLastStopIsDestination(bool lastStopIsDestination)
 {
-    objBool["lastStopIsDestination"] = lastStopIsDestination;
+    if(objBool["lastStopIsDestination"])
+        *objBool["lastStopIsDestination"] = lastStopIsDestination;
+    else
+        objBool["lastStopIsDestination"] = new bool(lastStopIsDestination);
 }
 
-QDateTime GMRoute::getPlannedArrival() const
+QDateTime *GMRoute::getPlannedArrival() const
 {
     return objQDateTime["plannedArrival"];
 }
 
 void GMRoute::setPlannedArrival(const QDateTime &plannedArrival)
 {
-    objQDateTime["plannedArrival"] = plannedArrival;
+    if(objQDateTime["plannedArrival"])
+        *objQDateTime["plannedArrival"] = plannedArrival;
+    else
+        objQDateTime["plannedArrival"] = new QDateTime(plannedArrival);
 }
 
-QDateTime GMRoute::getBaseLineArrival() const
+QDateTime *GMRoute::getBaseLineArrival() const
 {
     return objQDateTime["baseLineArrival"];
 }
 
 void GMRoute::setBaseLineArrival(const QDateTime &baseLineArrival)
 {
-    objQDateTime["baseLineArrival"] = baseLineArrival;
+    if(objQDateTime["baseLineArrival"])
+        *objQDateTime["baseLineArrival"] = baseLineArrival;
+    else
+        objQDateTime["baseLineArrival"] = new QDateTime(baseLineArrival);
 }
 
-QDateTime GMRoute::getPlannedDeparture() const
+QDateTime *GMRoute::getPlannedDeparture() const
 {
     return objQDateTime["plannedDeparture"];
 }
 
 void GMRoute::setPlannedDeparture(const QDateTime &plannedDeparture)
 {
-    objQDateTime["plannedDeparture"] = plannedDeparture;
+    if(objQDateTime["plannedDeparture"])
+        *objQDateTime["plannedDeparture"] = plannedDeparture;
+    else
+        objQDateTime["plannedDeparture"] = new QDateTime(plannedDeparture);
 }
 
-QDateTime GMRoute::getBaseLineDeparture() const
+QDateTime *GMRoute::getBaseLineDeparture() const
 {
     return objQDateTime["baseLineDeparture"];
 }
 
 void GMRoute::setBaseLineDeparture(const QDateTime &baseLineDeparture)
 {
-    objQDateTime["baseLineDeparture"] = baseLineDeparture;
+    if(objQDateTime["baseLineDeparture"])
+        *objQDateTime["baseLineDeparture"] = baseLineDeparture;
+    else
+        objQDateTime["baseLineDeparture"] = new QDateTime(baseLineDeparture);
 }
 
-QDateTime GMRoute::getProjectedArrival() const
+QDateTime *GMRoute::getProjectedArrival() const
 {
     return objQDateTime["projectedArrival"];
 }
 
 void GMRoute::setProjectedArrival(const QDateTime &projectedArrival)
 {
-    objQDateTime["projectedArrival"] = projectedArrival;
+    if(objQDateTime["projectedArrival"])
+        *objQDateTime["projectedArrival"] = projectedArrival;
+    else
+        objQDateTime["projectedArrival"] = new QDateTime(projectedArrival);
 }
 
-QDateTime GMRoute::getProjectedDeparture() const
+QDateTime *GMRoute::getProjectedDeparture() const
 {
     return objQDateTime["projectedDeparture"];
 }
 
 void GMRoute::setProjectedDeparture(const QDateTime &projectedDeparture)
 {
-    objQDateTime["projectedDeparture"] = projectedDeparture;
+    if(objQDateTime["projectedDeparture"])
+        *objQDateTime["projectedDeparture"] = projectedDeparture;
+    else
+        objQDateTime["projectedDeparture"] = new QDateTime(projectedDeparture);
 }
 
-QDateTime GMRoute::getActualArrival() const
+QDateTime *GMRoute::getActualArrival() const
 {
     return objQDateTime["actualArrival"];
 }
 
 void GMRoute::setActualArrival(const QDateTime &actualArrival)
 {
-    objQDateTime["actualArrival"] = actualArrival;
+    if(objQDateTime["actualArrival"])
+        *objQDateTime["actualArrival"] = actualArrival;
+    else
+        objQDateTime["actualArrival"] = new QDateTime(actualArrival);
 }
 
-QDateTime GMRoute::getActualDeparture() const
+QDateTime *GMRoute::getActualDeparture() const
 {
     return objQDateTime["actualDeparture"];
 }
 
 void GMRoute::setActualDeparture(const QDateTime &actualDeparture)
 {
-    objQDateTime["actualDeparture"] = actualDeparture;
+    if(objQDateTime["actualDeparture"])
+        *objQDateTime["actualDeparture"] = actualDeparture;
+    else
+        objQDateTime["actualDeparture"] = new QDateTime(actualDeparture);
 }
 
-double GMRoute::getbaseLineDistance() const
+double *GMRoute::getbaseLineDistance() const
 {
     return objDouble["baseLineDistance"];
 }
 
 void GMRoute::setbaseLineDistance(double baseLineDistance)
 {
-    objDouble["baseLineDistance"] = baseLineDistance;
+    if(objDouble["baseLineDistance"])
+        *objDouble["baseLineDistance"] = baseLineDistance;
+    else
+        objDouble["baseLineDistance"] = new double(baseLineDistance);
 }
 
-double GMRoute::getPlannedDistance() const
+double *GMRoute::getPlannedDistance() const
 {
     return objDouble["plannedDistance"];
 }
 
 void GMRoute::setPlannedDistance(double plannedDistance)
 {
-    objDouble["plannedDistance"] = plannedDistance;
+    if(objDouble["plannedDistance"])
+        *objDouble["plannedDistance"] = plannedDistance;
+    else
+        objDouble["plannedDistance"] = new double(plannedDistance);
 }
 
-double GMRoute::getProjectedDistance() const
+double *GMRoute::getProjectedDistance() const
 {
     return objDouble["projectedDistance"];
 }
 
 void GMRoute::setProjectedDistance(double projectedDistance)
 {
-    objDouble["projectedDistance"] = projectedDistance;
+    if(objDouble["projectedDistance"])
+        *objDouble["projectedDistance"] = projectedDistance;
+    else
+        objDouble["projectedDistance"] = new double(projectedDistance);
 }
 
-double GMRoute::getActualDistance() const
+double *GMRoute::getActualDistance() const
 {
     return objDouble["actualDistance"];
 }
 
 void GMRoute::setActualDistance(double actualDistance)
 {
-    objDouble["actualDistance"] = actualDistance;
+    if(objDouble["actualDistance"])
+        *objDouble["actualDistance"] = actualDistance;
+    else
+        objDouble["actualDistance"] = new double(actualDistance);
 }
 
-int GMRoute::getDelayTypeID() const
+int *GMRoute::getDelayTypeID() const
 {
     return objInt["delayTypeID"];
 }
 
 void GMRoute::setDelayTypeID(int delayTypeID)
 {
-    objInt["delayTypeID"] = delayTypeID;
+    if(objInt["delayTypeID"])
+        *objInt["delayTypeID"] = delayTypeID;
+    else
+        objInt["delayTypeID"] = new int(delayTypeID);
 }
 
-int GMRoute::getDelayMinutes() const
+int *GMRoute::getDelayMinutes() const
 {
     return objInt["delayMinutes"];
 }
 
 void GMRoute::setDelayMinutes(int delayMinutes)
 {
-    objInt["delayMinutes"] = delayMinutes;
+    if(objInt["delayMinutes"])
+        *objInt["delayMinutes"] = delayMinutes;
+    else
+        objInt["delayMinutes"] = new int(delayMinutes);
 }
 
-QDateTime GMRoute::getLastContactTime() const
+QDateTime *GMRoute::getLastContactTime() const
 {
     return objQDateTime["lastContactTime"];
 }
 
 void GMRoute::setLastContactTime(const QDateTime &lastContactTime)
 {
-    objQDateTime["lastContactTime"] = lastContactTime;
+    if(objQDateTime["lastContactTime"])
+        *objQDateTime["lastContactTime"] = lastContactTime;
+    else
+        objQDateTime["lastContactTime"] = new QDateTime(lastContactTime);
 }
 
-QDateTime GMRoute::getBaseLineComplete() const
+QDateTime *GMRoute::getBaseLineComplete() const
 {
     return objQDateTime["baseLineComplete"];
 }
 
 void GMRoute::setBaseLineComplete(const QDateTime &baseLineComplete)
 {
-    objQDateTime["baseLineComplete"] = baseLineComplete;
+    if(objQDateTime["baseLineComplete"])
+        *objQDateTime["baseLineComplete"] = baseLineComplete;
+    else
+        objQDateTime["baseLineComplete"] = new QDateTime(baseLineComplete);
 }
 
-QDateTime GMRoute::getPlannedComplete() const
+QDateTime *GMRoute::getPlannedComplete() const
 {
     return objQDateTime["plannedComplete"];
 }
 
 void GMRoute::setPlannedComplete(const QDateTime &plannedComplete)
 {
-    objQDateTime["plannedComplete"] = plannedComplete;
+    if(objQDateTime["plannedComplete"])
+        *objQDateTime["plannedComplete"] = plannedComplete;
+    else
+        objQDateTime["plannedComplete"] = new QDateTime(plannedComplete);
 }
 
-QDateTime GMRoute::getProjectedComplete() const
+QDateTime *GMRoute::getProjectedComplete() const
 {
     return objQDateTime["projectedComplete"];
 }
 
 void GMRoute::setProjectedComplete(const QDateTime &projectedComplete)
 {
-    objQDateTime["projectedComplete"] = projectedComplete;
+    if(objQDateTime["projectedComplete"])
+        *objQDateTime["projectedComplete"] = projectedComplete;
+    else
+        objQDateTime["projectedComplete"] = new QDateTime(projectedComplete);
 }
 
-QDateTime GMRoute::getActualComplete() const
+QDateTime *GMRoute::getActualComplete() const
 {
     return objQDateTime["actualComplete"];
 }
 
 void GMRoute::setActualComplete(const QDateTime &actualComplete)
 {
-    objQDateTime["actualComplete"] = actualComplete;
+    if(objQDateTime["actualComplete"])
+        *objQDateTime["actualComplete"] = actualComplete;
+    else
+        objQDateTime["actualComplete"] = new QDateTime(actualComplete);
 }
 
-QString GMRoute::getActualStartDataQuality() const
+QString *GMRoute::getActualStartDataQuality() const
 {
     return objQString["actualStartDataQuality"];
 }
 
 void GMRoute::setActualStartDataQuality(const QString &actualStartDataQuality)
 {
-    objQString["actualStartDataQuality"] = actualStartDataQuality;
+    if(objQString["actualStartDataQuality"])
+        *objQString["actualStartDataQuality"] = actualStartDataQuality;
+    else
+        objQString["actualStartDataQuality"] = new QString(actualStartDataQuality);
 }
 
-QString GMRoute::getActualDistanceDataQuality() const
+QString *GMRoute::getActualDistanceDataQuality() const
 {
     return objQString["actualDistanceDataQuality"];
 }
 
 void GMRoute::setActualDistanceDataQuality(const QString &actualDistanceDataQuality)
 {
-    objQString["actualDistanceDataQuality"] = actualDistanceDataQuality;
+    if(objQString["actualDistanceDataQuality"])
+        *objQString["actualDistanceDataQuality"] = actualDistanceDataQuality;
+    else
+        objQString["actualDistanceDataQuality"] = new QString(actualDistanceDataQuality);
 }
 
-QString GMRoute::getActualDepartDataQuality() const
+QString *GMRoute::getActualDepartDataQuality() const
 {
     return objQString["actualDepartureDataQuality"];
 }
 
 void GMRoute::setActualDepartDataQuality
-    (const QString &actualDepartureDataQuality)
+(const QString &actualDepartureDataQuality)
 {
-    objQString["actualDepartureDataQuality"] = actualDepartureDataQuality;
+    if(objQString["actualDepartureDataQuality"])
+        *objQString["actualDepartureDataQuality"] = actualDepartureDataQuality;
+    else
+        objQString["actualDepartureDataQuality"] = new QString(actualDepartureDataQuality);
 }
 
-double GMRoute::getbaseLineCost() const
+double *GMRoute::getbaseLineCost() const
 {
     return objDouble["baseLineCost"];
 }
 
 void GMRoute::setbaseLineCost(double baseLineCost)
 {
-    objDouble["baseLineCost"] = baseLineCost;
+    if(objDouble["baseLineCost"])
+        *objDouble["baseLineCost"] = baseLineCost;
+    else
+        objDouble["baseLineCost"] = new double(baseLineCost);
 }
 
-double GMRoute::getPlannedCost() const
+double *GMRoute::getPlannedCost() const
 {
     return objDouble["plannedCost"];
 }
 
 void GMRoute::setPlannedCost(double plannedCost)
 {
-    objDouble["plannedCost"] = plannedCost;
+    if(objDouble["plannedCost"])
+        *objDouble["plannedCost"] = plannedCost;
+    else
+        objDouble["plannedCost"] = new double(plannedCost);
 }
 
-double GMRoute::getActualCost() const
+double *GMRoute::getActualCost() const
 {
     return objDouble["actualCost"];
 }
 
 void GMRoute::setActualCost(double actualCost)
 {
-    objDouble["actualCost"] = actualCost;
+    if(objDouble["actualCost"])
+        *objDouble["actualCost"] = actualCost;
+    else
+        objDouble["actualCost"] = new double(actualCost);
 }
 
-QDateTime GMRoute::getBaseLineStart() const
+QDateTime *GMRoute::getBaseLineStart() const
 {
     return objQDateTime["baseLineStart"];
 }
 
 void GMRoute::setBaseLineStart(const QDateTime &baseLineStart)
 {
-    objQDateTime["baseLineStart"] = baseLineStart;
+    if(objQDateTime["baseLineStart"])
+        *objQDateTime["baseLineStart"] = baseLineStart;
+    else
+        objQDateTime["baseLineStart"] =new QDateTime(baseLineStart);
 }
 
-QDateTime GMRoute::getPlannedStart() const
+QDateTime *GMRoute::getPlannedStart() const
 {
     return objQDateTime["plannedStart"];
 }
 
 void GMRoute::setPlannedStart(const QDateTime &plannedStart)
 {
-    objQDateTime["plannedStart"] = plannedStart;
+    if(objQDateTime["plannedStart"])
+        *objQDateTime["plannedStart"] = plannedStart;
+    else
+        objQDateTime["plannedStart"] = new QDateTime(plannedStart);
 }
 
-QDateTime GMRoute::getProjectedStart() const
+QDateTime *GMRoute::getProjectedStart() const
 {
     return objQDateTime["projectedStart"];
 }
 
 void GMRoute::setProjectedStart(const QDateTime &projectedStart)
 {
-    objQDateTime["projectedStart"] = projectedStart;
+    if(objQDateTime["projectedStart"])
+        *objQDateTime["projectedStart"] = projectedStart;
+    else
+        objQDateTime["projectedStart"] = new QDateTime(projectedStart);
 }
 
-QDateTime GMRoute::getActualStart() const
+QDateTime *GMRoute::getActualStart() const
 {
     return objQDateTime["actualStart"];
 }
 
 void GMRoute::setActualStart(const QDateTime &actualStart)
 {
-    objQDateTime["actualStart"] = actualStart;
+    if(objQDateTime["actualStart"])
+        *objQDateTime["actualStart"] = actualStart;
+    else
+        objQDateTime["actualStart"] = new QDateTime(actualStart);
 }
 
-bool GMRoute::getHasHelper() const
+bool *GMRoute::getHasHelper() const
 {
     return objBool["hasHelper"];
 }
 
 void GMRoute::setHasHelper(bool hasHelper)
 {
-    objBool["hasHelper"] = hasHelper;
+    if(objBool["hasHelper"])
+        *objBool["hasHelper"] = hasHelper;
+    else
+        objBool["hasHelper"] = new bool(hasHelper);
 }
 
-QString GMRoute::getDriversName() const
+QString *GMRoute::getDriversName() const
 {
     return objQString["driversName"];
 }
 
 void GMRoute::setDriversName(const QString &driversName)
 {
-    objQString["driversName"] = driversName;
+    if(objQString["driversName"])
+        *objQString["driversName"] = driversName;
+    else
+        objQString["driversName"] = new QString(driversName);
 }
 
-int GMRoute::getTotalStops() const
+int *GMRoute::getTotalStops() const
 {
     return objInt["totalStops"];
 }
 
 void GMRoute::setTotalStops(int totalStops)
 {
-    objInt["totalStops"] = totalStops;
+    if(objInt["totalStops"])
+        *objInt["totalStops"] = totalStops;
+    else
+        objInt["totalStops"] = new int(totalStops);
 }
 
-int GMRoute::getCanceledStops() const
+int *GMRoute::getCanceledStops() const
 {
     return objInt["canceledStops"];
 }
 
 void GMRoute::setCanceledStops(int canceledStops)
 {
-    objInt["canceledStops"] = canceledStops;
+    if(objInt["canceledStops"])
+        *objInt["canceledStops"] = canceledStops;
+    else
+        objInt["canceledStops"] = new int(canceledStops);
 }
 
-int GMRoute::getUndeliveredStops() const
+int *GMRoute::getUndeliveredStops() const
 {
     return objInt["undeliveredStops"];
 }
 
 void GMRoute::setUndeliveredStops(int undeliveredStops)
 {
-    objInt["undeliveredStops"] = undeliveredStops;
+    if(objInt["undeliveredStops"])
+        *objInt["undeliveredStops"] = undeliveredStops;
+    else
+        objInt["undeliveredStops"] = new int(undeliveredStops);
 }
 
-int GMRoute::getRedeliveredStops() const
+int *GMRoute::getRedeliveredStops() const
 {
     return objInt["redeliveredStops"];
 }
 
 void GMRoute::setRedeliveredStops(int redeliveredStops)
 {
-    objInt["redeliveredStops"] = redeliveredStops;
+    if(objInt["redeliveredStops"])
+        *objInt["redeliveredStops"] = redeliveredStops;
+    else
+        objInt["redeliveredStops"] = new int(redeliveredStops);
 }
 
-int GMRoute::getActualDepartures() const
+int *GMRoute::getActualDepartures() const
 {
     return objInt["actualDepartures"];
 }
 
+
 void GMRoute::setActualDepartures(int actualDepartures)
 {
-    objInt["actualDepartures"] = actualDepartures;
+    if(objInt["actualDepartures"])
+        *objInt["actualDepartures"] = actualDepartures;
+    else
+        objInt["actualDepartures"] = new int(actualDepartures);
+
 }
 
-QString GMRoute::getStatus() const
+QString *GMRoute::getStatus() const
 {
     return objQString["status"];
 }
 
+
 void GMRoute::setStatus(const QString &status)
 {
-    objQString["status"] = status;
+    if(objQString["status"])
+        *objQString["status"] = status;
+    else
+        objQString["status"] = new QString(status);
+
 }
 
-int GMRoute::getPlannedTravelTimeMinutes() const
+int *GMRoute::getActualTravelTimeMinutes() const
+{
+    return objInt["actualTravelTimeMinutes"];
+}
+
+void GMRoute::setActualTravelTimeMinutes(int actualTravelTimeMinutes)
+{
+    if(objInt["actualTravelTimeMinutes"])
+        *objInt["actualTravelTimeMinutes"] = actualTravelTimeMinutes;
+    else
+        objInt["actualTravelTimeMinutes"] = new int(actualTravelTimeMinutes);
+}
+
+int *GMRoute::getPlannedTravelTimeMinutes() const
 {
     return objInt["plannedTravelTimeMinutes"];
 }
 
 void GMRoute::setPlannedTravelTimeMinutes(int plannedTravelTimeMinutes)
 {
-    objInt["plannedTravelTimeMinutes"] = plannedTravelTimeMinutes;
+    if(objInt["plannedTravelTimeMinutes"])
+        *objInt["plannedTravelTimeMinutes"] = plannedTravelTimeMinutes;
+    else
+        objInt["plannedTravelTimeMinutes"] = new int(plannedTravelTimeMinutes);
 }
 
-int GMRoute::getbaselineTravelTimeMinutes() const
+int *GMRoute::getbaselineTravelTimeMinutes() const
 {
     return objInt["baselineTravelTimeMinutes"];
 }
 
 void GMRoute::setbaselineTravelTimeMinutes(int baselineTravelTimeMinutes)
 {
-    objInt["baselineTravelTimeMinutes"] = baselineTravelTimeMinutes;
+    if(objInt["baselineTravelTimeMinutes"])
+        *objInt["baselineTravelTimeMinutes"] = baselineTravelTimeMinutes;
+    else
+        objInt["baselineTravelTimeMinutes"] = new int(baselineTravelTimeMinutes);
 }
 
-bool GMRoute::getHasPicture() const
+bool *GMRoute::getHasPicture() const
 {
     return objBool["hasPicture"];
 }
 
 void GMRoute::setHasPicture(bool hasPicture)
 {
-    objBool["hasPicture"] = hasPicture;
+
+    if(objBool["hasPicture"])
+        *objBool["hasPicture"] = hasPicture;
+    else
+        objBool["hasPicture"] = new bool(hasPicture);
+
 }
 
-GMOrganization GMRoute::getOrganization() const
+GMOrganization *GMRoute::getOrganization() const
 {
     return objGMOrganization["organization"];
 }
 
 void GMRoute::setOrganization(const GMOrganization &organization)
 {
-    objGMOrganization["organization"] = organization;
+    if(objGMOrganization["organization"])
+        *objGMOrganization["organization"] = organization;
+    else
+        objGMOrganization["organization"] = new GMOrganization(organization);
 }
 
 void GMRoute::importJson(const QJsonObject &json)
@@ -574,43 +762,39 @@ void GMRoute::compareJson(const QJsonObject &json)
         if(importedMember.contains(key))
             importedMember[key] = true;
 
-    for(auto key : importedMember.keys())
-        qDebug() << key << "," << importedMember[key];
+//    for(auto key : importedMember.keys())
+//        qDebug() << key << "," << importedMember[key];
 }
 
 //BEGIN PRIVATE FUNCTIONS
 
 void GMRoute::setImportedMembersFalse()
 {
+    //this is useful for knowing EXACTLY what was imported
+    //from json.
     for(auto t : memberList)
         importedMember[t] = false;
 }
 
-void GMRoute::setMembersToDefaults()
+void GMRoute::setMembersNull()
 {
     for(auto key : objInt.keys())
-        if(importedMember[key])
-            objInt[key] = objIntInit;
+        objInt[key] = objIntInit;
 
     for(auto key : objQDateTime.keys())
-        if(importedMember[key])
-            objQDateTime[key] = objQDateTimeInit;
+        objQDateTime[key] = objQDateTimeInit;
 
     for(auto key : objBool.keys())
-        if(importedMember[key])
-            objBool[key] = objBoolInit;
+        objBool[key] = objBoolInit;
 
     for(auto key : objQString.keys())
-        if(importedMember[key])
-            objQString[key] = objQStringInit;
+        objQString[key] = objQStringInit;
 
     for(auto key : objQDate.keys())
-        if(importedMember[key])
-            objQDate[key] = objQDateInit;
+        objQDate[key] = objQDateInit;
 
     for(auto key : objQDate.keys())
-        if(importedMember[key])
-            objGMOrganization[key] = objGMOrganizationInit;
+        objGMOrganization[key] = objGMOrganizationInit;
 
     //GOrganization org
     //GLocation orgin;
@@ -626,31 +810,80 @@ void GMRoute::importEngine(const QJsonObject &json)
 {
     //import all valid int members
     for(auto key : objInt.keys())
+    {
         if(importedMember[key])
-            objInt[key] = json[key].toInt();
+        {
+            if(objInt[key])
+                *objInt[key] = json[key].toInt();
+
+            else
+                objInt[key] = new int(json[key].toInt());
+        }
+    }
 
     //import all valid qdatetime keys
     for(auto key : objQDateTime.keys())
+    {
         if(importedMember[key])
-            objQDateTime[key] = QDateTime::fromString
+        {
+            if(objQDateTime[key])
+                *objQDateTime[key] = QDateTime::fromString
                     (json[key].toString(), Qt::ISODateWithMs);
+            else
+                objQDateTime[key] = new QDateTime(QDateTime::fromString
+                                                  (json[key].toString(), Qt::ISODateWithMs));
+        }
+    }
 
     for(auto key : objBool.keys())
+    {
         if(importedMember[key])
-            objBool[key] = json[key].toBool();
+        {
+            if(objBool[key])
+                *objBool[key] = json[key].toBool();
+            else
+                objBool[key] = new bool(json[key].toBool());
+
+        }
+    }
 
     for(auto key : objQString.keys())
+    {
         if(importedMember[key])
-            objQString[key] = json[key].toString();
+        {
+            if(objQString[key])
+                *objQString[key] = json[key].toString();
+            else
+                objQString[key] = new QString(json[key].toString());
+        }
+    }
 
     for(auto key : objQDate.keys())
+    {
         if(importedMember[key])
-            objQDate[key] = QDate::fromString
+        {
+            if(objQDate[key])
+                *objQDate[key] = QDate::fromString
                     (json[key].toString(), "yyyy-MM-dd");
+            else
+                objQDate[key] = new QDate(QDate::fromString
+                                          (json[key].toString(), "yyyy-MM-dd"));
+        }
+    }
 
     for(auto key : objGMOrganization.keys())
+    {
         if(importedMember[key])
-            objGMOrganization[key].importJson(json[key].toObject());
+        {
+            if(objGMOrganization[key])
+                objGMOrganization[key]->importJson(json[key].toObject());
+            else
+            {
+                objGMOrganization[key] = new GMOrganization();
+                objGMOrganization[key]->importJson(json[key].toObject());
+            }
+        }
+    }
 }
 
 QJsonObject GMRoute::exportEngine()
@@ -659,29 +892,29 @@ QJsonObject GMRoute::exportEngine()
 
     //import all valid int members
     for(auto key : objInt.keys())
-        if(importedMember[key])
-            json[key] = objInt[key];
+        if(importedMember[key] && objInt[key])
+            json[key] = *objInt[key];
 
     //import all valid qdatetime members
     for(auto key : objQDateTime.keys())
-        if(importedMember[key])
-            json[key] = objQDateTime[key].toString(Qt::ISODateWithMs);
+        if(importedMember[key] && objQDateTime[key])
+            json[key] = objQDateTime[key]->toString(Qt::ISODateWithMs);
 
     for(auto key : objBool.keys())
-        if(importedMember[key])
-            json[key] = objBool[key];
+        if(importedMember[key] && objBool[key])
+            json[key] = *objBool[key];
 
     for(auto key : objQString.keys())
-        if(importedMember[key])
-            json[key] = objQString[key];
+        if(importedMember[key] && objQString[key])
+            json[key] = *objQString[key];
 
     for(auto key : objQDate.keys())
-        if(importedMember[key])
-            json[key] = objQDate[key].toString("yyyy-MM-dd");
+        if(importedMember[key] && objQDate[key])
+            json[key] = objQDate[key]->toString("yyyy-MM-dd");
 
     for(auto key : objGMOrganization.keys())
-        if(importedMember[key])
-            json[key] = objGMOrganization[key].exportJson();
+        if(importedMember[key] && objGMOrganization[key])
+            json[key] = objGMOrganization[key]->exportJson();
 
     return json;
 }

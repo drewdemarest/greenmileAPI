@@ -1,4 +1,5 @@
 #include "gmorganization.h"
+#include "gmi18nlocale.h"
 
 GMOrganization::GMOrganization()
 {
@@ -16,6 +17,42 @@ GMOrganization::GMOrganization()
                << objQString.keys()   << objQDate.keys()
                << objBool.keys()      << objQDateTime.keys()
                << objQDateTime.keys() << objGMOrganization.keys();
+}
+
+GMOrganization::~GMOrganization()
+{
+    delete objBoolInit;
+    delete objIntInit;
+    delete objDoubleInit;
+    delete objQStringInit;
+    delete objQDateInit;
+    delete objQDateTimeInit;
+    delete objGMOrganizationInit;
+    delete objGMI18NLocaleInit;
+
+    qDeleteAll(objInt);
+    objInt.clear();
+
+    qDeleteAll(objDouble);
+    objDouble.clear();
+
+    qDeleteAll(objBool);
+    objBool.clear();
+
+    qDeleteAll(objQString);
+    objQString.clear();
+
+    qDeleteAll(objQDate);
+    objQDate.clear();
+
+    qDeleteAll(objQDateTime);
+    objQDateTime.clear();
+
+    qDeleteAll(objGMOrganization);
+    objGMOrganization.clear();
+
+    qDeleteAll(objGMI18NLocale);
+    objGMI18NLocale.clear();
 }
 
 int *GMOrganization::getId() const
@@ -188,6 +225,12 @@ void GMOrganization::setMembersNull()
         objGMOrganization[key] = objGMOrganizationInit;
     }
 
+    for(auto key : objGMI18NLocale.keys())
+    {
+        delete objGMI18NLocale[key];
+        objGMI18NLocale[key] = objGMI18NLocaleInit;
+    }
+
     //GOrganization org
     //GLocation orgin;
     //GLocation destination;
@@ -276,6 +319,20 @@ void GMOrganization::importEngine(const QJsonObject &json)
             }
         }
     }
+
+    for(auto key : objGMI18NLocale.keys())
+    {
+        if(importedMember[key])
+        {
+            if(objGMI18NLocale[key])
+                objGMI18NLocale[key]->importJson(json[key].toObject());
+            else
+            {
+                objGMI18NLocale[key] = new GMI18NLocale();
+                objGMI18NLocale[key]->importJson(json[key].toObject());
+            }
+        }
+    }
 }
 
 QJsonObject GMOrganization::exportEngine()
@@ -307,6 +364,11 @@ QJsonObject GMOrganization::exportEngine()
     for(auto key : objGMOrganization.keys())
         if(importedMember[key] && objGMOrganization[key])
             json[key] = objGMOrganization[key]->exportJson();
+
+
+    for(auto key : objGMI18NLocale.keys())
+        if(importedMember[key] && objGMI18NLocale[key])
+            json[key] = objGMI18NLocale[key]->exportJson();
 
     return json;
 }

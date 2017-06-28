@@ -3,10 +3,13 @@
 
 #include <QtCore>
 
+class GMI18NLocale;
+
 class GMOrganization
 {
 public:
     GMOrganization();
+    ~GMOrganization();
 
     int *getId() const;
     void setId(int id);
@@ -42,14 +45,6 @@ public:
     QJsonObject exportJson();
 
 private:
-    //GM_Organization org
-    //GM_Location orgin;
-    //GM_Location destination;
-    //GM_Stop stops;
-    //GM_DriverAssignment driverAssignments;
-    //GM_EquipmentAssignment equipmentAssignments;
-    //GM_RouteHelperAssignment routeHelperAssignments;
-
     //Computation subsection.
     void compareJson(const QJsonObject &json);
     void setMembersNull();
@@ -59,7 +54,7 @@ private:
     void importEngine(const QJsonObject &json);
 
 
-    //Memeber subsection
+    //Member subsection
     bool *objBoolInit                       = Q_NULLPTR;
     int *objIntInit                         = Q_NULLPTR;
     double *objDoubleInit                   = Q_NULLPTR;
@@ -67,6 +62,7 @@ private:
     QDate *objQDateInit                     = Q_NULLPTR;
     QDateTime *objQDateTimeInit             = Q_NULLPTR;
     GMOrganization *objGMOrganizationInit   = Q_NULLPTR;
+    GMI18NLocale *objGMI18NLocaleInit       = Q_NULLPTR;
 
     QStringList memberList;
 
@@ -77,6 +73,7 @@ private:
     QMap<QString, QDate*>            objQDate;
     QMap<QString, QDateTime*>        objQDateTime;
     QMap<QString, GMOrganization*>   objGMOrganization;
+    QMap<QString, GMI18NLocale*>     objGMI18NLocale;
     //Meta member to track which members are imported
     QMap<QString, bool>         importedMember;
 };

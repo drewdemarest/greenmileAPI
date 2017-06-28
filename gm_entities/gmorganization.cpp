@@ -93,6 +93,19 @@ void GMOrganization::setUnitSystem(const QString &unitSystem)
         objQString["unitSystem"] = new QString(unitSystem);
 }
 
+GMOrganization *GMOrganization::getParentOrganization() const
+{
+    return objGMOrganization["organization"];
+}
+
+void GMOrganization::setParentOrganization(const GMOrganization &organization)
+{
+    if(objGMOrganization["organization"])
+        *objGMOrganization["organization"] = organization;
+    else
+        objGMOrganization["organization"] = new GMOrganization(organization);
+}
+
 //GMLastModifier getLastModifier() const;
 //void setLastModifier(GMLastModifier &lastModifier);
 

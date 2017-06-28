@@ -26,6 +26,9 @@ public:
     QString *getUnitSystem() const;
     void setUnitSystem(const QString &unitSystem);
 
+    GMOrganization *getParentOrganization() const;
+    void setParentOrganization(const GMOrganization &parentOrganization);
+
     //GMLastModifier getLastModifier() const;
     //void setLastModifier(GMLastModifier &lastModifier);
 

@@ -9,15 +9,15 @@ GMI18NLocale::GMI18NLocale()
     objQString["language"]                  = objQStringInit;
     objQString["country"]                   = objQStringInit;
     objQString["description"]               = objQStringInit;
-    objQString["dateformat"]                = objQStringInit;
-    objQString["timeformat"]                = objQStringInit;
+    objQString["dateFormat"]                = objQStringInit;
+    objQString["timeFormat"]                = objQStringInit;
     objQString["currency"]                  = objQStringInit;
-    objQString["decimalsymbol"]             = objQStringInit;
-    objQString["digitalgrouping"]           = objQStringInit;
+    objQString["decimalSymbol"]             = objQStringInit;
+    objQString["digitalGrouping"]           = objQStringInit;
 
-    objGMI18NLocale["parentlocaleid"]       = objGMI18NLocaleInit;
+    objGMI18NLocale["parentLocaleId"]       = objGMI18NLocaleInit;
 
-    objGMOrganization["organizationid"]     = objGMOrganizationInit;
+    objGMOrganization["organizationId"]     = objGMOrganizationInit;
 
     memberList << objInt.keys()             << objQString.keys()
                << objGMOrganization.keys()  << objGMI18NLocale.keys();
@@ -71,31 +71,33 @@ void GMI18NLocale::setKey(const QString &key)
         objQString["key"] = new QString(key);
 }
 
-GMI18NLocale *GMI18NLocale::getParentLocaleId() const
-{
-    return objGMI18NLocale["parentLocaleid"];
-}
 
-void GMI18NLocale::setKey(const GMI18NLocale &parentLocaleid)
-{
-    if(objGMI18NLocale["parentLocaleid"])
-        *objGMI18NLocale["parentLocaleid"] = parentLocaleid;
-    else
-        objGMI18NLocale["parentLocaleid"] = new GMI18NLocale(parentLocaleid);
-}
 
-GMOrganization *GMI18NLocale::getOrganizationId() const
-{
-    return objGMOrganization["organizationid"];
-}
+//GMI18NLocale *GMI18NLocale::getparentLocaleId() const
+//{
+//    return objGMI18NLocale["parentLocaleId"];
+//}
 
-void GMI18NLocale::setOrganizationID(const GMOrganization &organizationid)
-{
-    if(objGMOrganization["organizationid"])
-        *objGMOrganization["organizationid"] = organizationid;
-    else
-        objGMOrganization["organizationid"] = new GMOrganization(organizationid);
-}
+//void GMI18NLocale::setParentLocaleId(const GMI18NLocale &parentLocaleId)
+//{
+//    if(objGMI18NLocale["parentLocaleId"])
+//        *objGMI18NLocale["parentLocaleId"] = parentLocaleId;
+//    else
+//        objGMI18NLocale["parentLocaleId"] = new GMI18NLocale(parentLocaleId);
+//}
+
+//GMOrganization *GMI18NLocale::getorganizationId() const
+//{
+//    return objGMOrganization["organizationId"];
+//}
+
+//void GMI18NLocale::setOrganizationId(const GMOrganization &organizationId)
+//{
+//    if(objGMOrganization["organizationId"])
+//        *objGMOrganization["organizationId"] = organizationId;
+//    else
+//        objGMOrganization["organizationId"] = new GMOrganization(organizationId);
+//}
 
 QString *GMI18NLocale::getLanguage() const
 {

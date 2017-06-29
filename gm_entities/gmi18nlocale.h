@@ -23,11 +23,11 @@ public:
     QString *getKey() const;
     void setKey(const QString &key);
 
-    GMI18NLocale *getParentLocaleId() const;
-    void setKey(const GMI18NLocale &parentLocaleid);
+//    GMI18NLocale *getParentLocaleId() const;
+//    void setKey(const GMI18NLocale &parentLocaleid);
 
-    GMOrganization *getOrganizationId() const;
-    void setOrganizationID(const GMOrganization &organizationid);
+//    GMOrganization *getOrganizationId() const;
+//    void setOrganizationId(const GMOrganization &organizationId);
 
     QString *getLanguage() const;
     void setLanguage(const QString &language);

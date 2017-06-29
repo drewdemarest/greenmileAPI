@@ -38,7 +38,6 @@ public:
     //GMCreator getLastCreator() const;
     //void getLastCreator(GMCreator &creator);
 
-
     //BEGIN COMPUTATION FUNCTIONS
     void importJson(const QJsonObject &json);
     void appendJson(const QJsonObject &json);

@@ -2,8 +2,9 @@
 #define GMROUTE_H
 
 #include <QtCore>
-#include <gm_entities/gmorganization.h>
 
+class GMStop;
+class GMOrganization;
 
 class GMRoute
 {

@@ -179,6 +179,7 @@ private:
     void setImportedMembersFalse();
 
     QJsonObject exportEngine();
+
     void importEngine(const QJsonObject &json);
 
     //Memeber subsection

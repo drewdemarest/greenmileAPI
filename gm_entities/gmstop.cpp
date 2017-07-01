@@ -1,4 +1,5 @@
 #include "gmstop.h"
+#include "gmroute.h"
 
 
 GMStop::GMStop()
@@ -90,8 +91,6 @@ GMStop::~GMStop()
     delete objQStringInit;
     delete objQDateInit;
     delete objQDateTimeInit;
-
-
 
     delete objFloatInit;
     delete objGMRouteInit;

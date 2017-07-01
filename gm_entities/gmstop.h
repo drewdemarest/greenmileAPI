@@ -18,6 +18,132 @@ public:
     int *getId() const;
     void setId(int id);
 
+    QString *getKey() const;
+    void setKey(QString &key);
+
+    GMRoute *getRoute() const;
+    void setRoute(GMRoute &route);
+
+    GMOrder *getOrder() const;
+    void setOrder(GMOrder &order);
+
+    GMLocation *getLocation() const;
+    void setLocation(GMLocation &location);
+
+    int *getBaseLineSequenceNum() const;
+    void setBaseLineSequenceNum(int baseLineSequenceNum);
+
+    int *getPlannedSequenceNum() const;
+    void setPlannedSequenceNum(int plannedSequenceNum);
+
+    int *getActualSequenceNum() const;
+    void setActualSequenceNum(int actualSequenceNum);
+
+    GMStopType *getStopType() const;
+    void setStopType(GMStopType &stopType);
+
+    GMUdfs *getUdfs() const;
+    void setUdfs(GMUdfs &udfs);
+
+    QDateTime *getBaseLineArrival() const;
+    void setBaseLineArrival(QDateTime &baseLineArrival);
+
+    QDateTime *getPlannedArrival() const;
+    void setPlannedArrival(QDateTime &plannedArrival);
+
+    QDateTime *getPlannedDeparture() const;
+    void setPlannedDeparture(QDateTime &plannedDeparture);
+
+    QDateTime *getProjectedArrival() const;
+    void setProjectedArrival(QDateTime &projectedArrival);
+
+    QDateTime *getProjectedDeparture() const;
+    void setProjectedDeparture(QDateTime &projectedDeparture);
+
+    QDateTime *getActualArrival() const;
+    void setActualArrival(QDateTime &actualArrival);
+
+    double *getBaseLineDistance() const;
+    void setBaseLineDistance(double baseLineDistance);
+
+    double *getPlannedDistance() const;
+    void setPlannedDistance(double plannedDistance);
+
+    double *getProjectedDistance() const;
+    void setProjectedDistance(double projectedDistance);
+
+    double *getActualDistance() const;
+    void setActualDistance(double actualDistance);
+
+    QString *getActualArrivalDataQuality() const;
+    void setActualArrivalDataQuality(QString &actualArrivalDataQuality);
+
+    QString *getServiceDataQuality() const;
+    void setServiceDataQuality(QString &serviceDataQuality);
+
+    QString *getActualDepartureQuality() const;
+    void setActualDepartureQuality(QString &actualDepartureQuality);
+
+    QString *getActualDistanceQuality() const;
+    void setActualDistanceQuality(QString &actualDistanceQuality);
+
+    double *getBaseLineSize1() const;
+    void setBaseLineSize1(double baseLineSize1);
+
+    double *getBaseLineSize2() const;
+    void setBaseLineSize2(double baseLineSize2);
+
+    double *getBaseLineSize3() const;
+    void setBaseLineSize3(double baseLineSize3);
+
+    double *getPlannedSize1() const;
+    void setPlannedSize1(double plannedLineSize1);
+
+    double *getPlannedSize2() const;
+    void setPlannedSize2(double baseLineSize2);
+
+    double *getPlannedSize3() const;
+    void setPlannedSize3(double baseLineSize3);
+
+    double *getBaseLinePickupSize1() const;
+    void setBaseLinePickupSize1(double baseLinePickupSize1);
+
+    double *getBaseLinePickupSize2() const;
+    void setBaseLinePickupSize2(double baseLinePickupSize2);
+
+    double *getBaseLinePickupSize3() const;
+    void setBaseLinePickupSize3(double baseLinePickupSize3);
+
+    double *getActualPickupSize1() const;
+    void setActualPickupSize(double actualPickupSize1);
+
+    double *getActualPickupSize2() const;
+    void setActualPickupSize2(double actualPickupSize2);
+
+    double *getActualPickupSize3() const;
+    void actualPickupSize3(double actualPickupSize3);
+
+    double *getDamagedSize1() const;
+    void setDamagedSize1(double damagedSize1);
+
+    double *getDamagedSize2() const;
+    void setDamagedSize2(double damagedSize2);
+
+    double *getDamagedSize3() const;
+    void setDamagedSize3(double damagedSize3);
+
+    double *getBaselineServiceTime() const;
+    void setBaselineServiceTime(double baselineServiceTime);
+
+    double *getProjectedServiceTime() const;
+    void setProjectedServiceTime(double projectedServiceTime);
+
+    double *getPlannedServiceTime() const;
+    void setPlannedServiceTime(double plannedServiceTime);
+
+    double *getActualServiceTime() const;
+    void setActualServiceTIme(double actualServiceTime);
+
     //BEGIN COMPUTATION FUNCTIONS
     void importJson(const QJsonObject &json);
     void appendJson(const QJsonObject &json);
@@ -48,8 +174,6 @@ private:
     QString *objQStringInit                 = Q_NULLPTR;
     QDate *objQDateInit                     = Q_NULLPTR;
     QDateTime *objQDateTimeInit             = Q_NULLPTR;
-
-
 
     //NEW OBJECTS HERE
     float *objFloatInit                     = Q_NULLPTR;

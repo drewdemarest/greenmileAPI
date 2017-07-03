@@ -903,6 +903,8 @@ void GMRoute::importEngine(const QJsonObject &json)
     }
 }
 
+//Template example
+
 
 
 QJsonObject GMRoute::exportEngine()

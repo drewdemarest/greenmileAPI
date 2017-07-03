@@ -144,6 +144,76 @@ public:
     double *getActualServiceTime() const;
     void setActualServiceTIme(double actualServiceTime);
 
+    int *getBulkArriveGroup() const;
+    void setBulkArriveGroup(int bulkArriveGroup);
+
+    QString *getDeliveryReasonCode() const;
+    void setDeliveryReasonCode(QString &deliveryReasonCode);
+
+    QString *getOverReasonCode() const;
+    void setOverReasonCode(QString &overReasonCode);
+
+    QString *getShortReasonCode() const;
+    void setShortReasonCode(QString &shortReasonCode);
+
+    QString *getDamagedReasonCode() const;
+    void setDamagedReasonCode(QString &damagedReasonCode);
+
+    QString *getPickupReasonCode() const;
+    void setPickupReasonCode(QString &pickupReasonCode);
+
+    QString *getCancelCode() const;
+    void setCancelCode(QString &cancelCode);
+
+    QString *getUndeliverableCode() const;
+    void setUndeliverableCode(QString &undeliverableCode);
+
+    GMStop *getRedeliveryStop() const;
+    void setRedeliveryStop(GMStop &redeliveryStop);
+
+    GMStop *getParentRedeliveryStop() const;
+    void setParentRedeliveryStop(GMStop &parentRedeliveryStop);
+
+    float *getArrivalLatitude() const;
+    void setArrivalLatitude(float arrivalLatitude);
+
+    float *getArrivalLongitude() const;
+    void setArrivalLongitude(float arrivalLongitiude);
+
+    QString *getArrivalMobileGpsProvider();
+    void setArrivalMobileGpsProvider(QString &arrivalMobileGpsProvider);
+
+    int *getArrivalAccuracyMeters() const;
+    void setArrivalAccuracyMeters(int arrivalAccuracyMeters);
+
+    bool *getArrivedInTimeWindow() const;
+    void setArrivedInTimeWindow(bool arrivedInTimeWindow);
+
+    float *getServiceLatitude() const;
+    void setServiceLatitude(float serviceLatitude);
+
+    int *getServiceAccuracyMeters() const;
+    void setServiceAccuracyMeters(int serviceAccuracyMeters);
+
+    QString *getServiceMobileGPSProvider() const;
+    void setServiceMobileGPSProvider(QString &serviceMobileGPSProvider);
+
+    //lowercaseisintentional...
+    QString *getStopinstructions() const;
+    void setStopinstructions(QString &stopinstructions);
+
+    float *getServiceLongitude() const;
+    void setServiceLongitude(int serviceLongitude);
+
+    bool *getHasPicture() const;
+    void setHasPicture(bool hasPicture);
+
+    bool *getHasSignature() const;
+    void setHasSignature(bool hasSignature);
+
+    QString *getSignatureFilePath() const;
+    void setSignatureFilePath(QString &signatureFilePath);
+
     //BEGIN COMPUTATION FUNCTIONS
     void importJson(const QJsonObject &json);
     void appendJson(const QJsonObject &json);
@@ -182,6 +252,7 @@ private:
     GMLocation *objGMLocationInit           = Q_NULLPTR;
     GMStopType *objGMStopTypeInit           = Q_NULLPTR;
     GMUdfs *objGMUdfsInit                   = Q_NULLPTR;
+    GMStop  *objGMStopInit                  = Q_NULLPTR;
 
 
     QStringList memberList;
@@ -201,6 +272,7 @@ private:
     QMap<QString, GMLocation*>       objGMLocation;
     QMap<QString, GMStopType*>       objGMStopType;
     QMap<QString, GMUdfs*>           objGMUdfs;
+    QMap<QString, GMStop*>           objGMStop;
 
 
     //Meta member to track which members are imported

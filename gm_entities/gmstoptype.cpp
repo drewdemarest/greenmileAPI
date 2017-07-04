@@ -40,6 +40,7 @@ GMStopType::~GMStopType()
     objGMOrganization.clear();
 }
 
+/*
 int *GMStopType::getId() const
 {
     return objInt["id"];
@@ -117,6 +118,7 @@ void GMStopType::setLocationRequired(bool locationRequired)
     else
         objBool["locationRequired"] = new bool(locationRequired);
 }
+*/
 
 void GMStopType::importJson(const QJsonObject &json)
 {

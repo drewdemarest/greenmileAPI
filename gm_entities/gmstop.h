@@ -16,6 +16,7 @@ public:
     GMStop();
     ~GMStop();
 
+    /*
     int *getId() const;
     void setId(int id);
 
@@ -214,6 +215,7 @@ public:
 
     QString *getSignatureFilePath() const;
     void setSignatureFilePath(QString &signatureFilePath);
+    */
 
     //BEGIN COMPUTATION FUNCTIONS
     void importJson(const QJsonObject &json);
@@ -222,14 +224,6 @@ public:
     void setMembersNull();
 
 private:
-    //GM_Organization org
-    //GM_Location orgin;
-    //GM_Location destination;
-    //GM_Stop stops;
-    //GM_DriverAssignment driverAssignments;
-    //GM_EquipmentAssignment equipmentAssignments;
-    //GM_RouteHelperAssignment routeHelperAssignments;
-
     //Computation subsection.
     void compareJson(const QJsonObject &json);
     //void setMembersNull();
@@ -254,7 +248,6 @@ private:
     GMStopType *objGMStopTypeInit           = Q_NULLPTR;
     GMUdfs *objGMUdfsInit                   = Q_NULLPTR;
     GMStop  *objGMStopInit                  = Q_NULLPTR;
-
 
     QStringList memberList;
 

@@ -55,6 +55,7 @@ GMOrganization::~GMOrganization()
     objGMI18NLocale.clear();
 }
 
+/*
 int *GMOrganization::getId() const
 {
     return objInt["id"];
@@ -151,6 +152,7 @@ void GMOrganization::importJson(const QJsonObject &json)
     compareJson(json);
     importEngine(json);
 }
+*/
 
 QJsonObject GMOrganization::exportJson()
 {

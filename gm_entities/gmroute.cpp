@@ -109,6 +109,7 @@ GMRoute::~GMRoute()
 
 //BEGIN GETTERS/SETTERS
 
+/*
 int *GMRoute::getId() const
 {
     return objInt["id"];
@@ -726,6 +727,7 @@ void GMRoute::setOrganization(const GMOrganization &organization)
     else
         objGMOrganization["organization"] = new GMOrganization(organization);
 }
+*/
 
 void GMRoute::importJson(const QJsonObject &json)
 {

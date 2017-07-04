@@ -7,7 +7,7 @@
 //of my variables, good job! It's there to more closely
 //match the Greenmile API. They tend to switch from
 //lowerCamelCase to ihateeverything format without
-//any rhyme or ...raisin.
+//any rhyme or ...raisins.
 
 class GMOrganization;
 
@@ -17,6 +17,7 @@ public:
     GMI18NLocale();
     ~GMI18NLocale();
 
+/*
     int *getId() const;
     void setId(int id);
 
@@ -52,6 +53,7 @@ public:
 
     QString *getDigitalGrouping() const;
     void setDigitalGrouping(const QString &digitalgrouping);
+*/
 
     //BEGIN COMPUTATION FUNCTIONS
     void importJson(const QJsonObject &json);

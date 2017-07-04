@@ -12,6 +12,7 @@ public:
     GMRoute();
     ~GMRoute();
 
+    /*
     //BEGIN GETTERS/SETTERS
 
     int *getId() const;
@@ -157,6 +158,7 @@ public:
 
     GMOrganization *getOrganization() const;
     void setOrganization(const GMOrganization &organization);
+    */
 
     //BEGIN COMPUTATION FUNCTIONS
     void importJson(const QJsonObject &json);

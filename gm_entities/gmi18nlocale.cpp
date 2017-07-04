@@ -44,7 +44,7 @@ GMI18NLocale::~GMI18NLocale()
     objGMI18NLocale.clear();
 }
 
-
+/*
 int *GMI18NLocale::getId() const
 {
     return objInt["id"];
@@ -202,6 +202,7 @@ void GMI18NLocale::setDigitalGrouping(const QString &digitalgrouping)
     else
         objQString["digitalgrouping"] = new QString(digitalgrouping);
 }
+*/
 
 void GMI18NLocale::importJson(const QJsonObject &json)
 {

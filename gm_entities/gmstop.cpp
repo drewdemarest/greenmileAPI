@@ -152,6 +152,7 @@ GMStop::~GMStop()
     objGMStop.clear();
 }
 
+/*
 int *GMStop::getId() const
 {
     return objInt["id"];
@@ -1010,6 +1011,7 @@ void GMStop::setSignatureFilePath(QString &signatureFilePath)
     else
         objQString["signatureFilePath"] = new QString(signatureFilePath);
 }
+*/
 
 void GMStop::importJson(const QJsonObject &json)
 {

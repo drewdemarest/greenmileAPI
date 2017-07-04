@@ -13,8 +13,10 @@ public:
     GMOrder();
     ~GMOrder();
 
+    /*
     int *getId() const;
     void setId(int id);
+    */
 
     //BEGIN COMPUTATION FUNCTIONS
     void importJson(const QJsonObject &json);

@@ -11,6 +11,7 @@ public:
     GMStopType();
     ~GMStopType();
 
+/*
     int *getId() const;
     void setId(int id);
 
@@ -28,6 +29,7 @@ public:
 
     bool *setLocationRequired() const;
     void setLocationRequired(bool locationRequired);
+*/
 
     //BEGIN COMPUTATION FUNCTIONS
     void importJson(const QJsonObject &json);

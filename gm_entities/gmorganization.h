@@ -11,6 +11,7 @@ public:
     GMOrganization();
     ~GMOrganization();
 
+/*
     int *getId() const;
     void setId(int id);
 
@@ -37,6 +38,7 @@ public:
 
     //GMCreator getLastCreator() const;
     //void getLastCreator(GMCreator &creator);
+*/
 
     //BEGIN COMPUTATION FUNCTIONS
     void importJson(const QJsonObject &json);

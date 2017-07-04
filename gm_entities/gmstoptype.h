@@ -64,9 +64,6 @@ private:
 
     //Meta member to track which members are imported
     QMap<QString, bool>             importedMember;
-
-    //This is needed so that I can turn objects into strings.
-    QJsonDocument                   catalyst;
 };
 
 #endif // GMSTOPTYPE_H

@@ -2,8 +2,9 @@
 #include "gmroute.h"
 #include "gmorder.h"
 #include "gmlocation.h"
-#include "gmstoptype.h"
 #include "gmudfs.h"
+#include "gmstoptype.h"
+
 
 GMStop::GMStop()
 {
@@ -69,14 +70,14 @@ GMStop::GMStop()
     objQString["signatureFilePath"]             = objQStringInit;
     objQString["stopinstructions"]              = objQStringInit;
 
-    objQDateTime["baseLineArrival"]             = objQDateTime;
-    objQDateTime["baseLineDeparture"]           = objQDateTime;
-    objQDateTime["plannedArrival"]              = objQDateTime;
-    objQDateTime["plannedDeparture"]            = objQDateTime;
-    objQDateTime["projectedArrival"]            = objQDateTime;
-    objQDateTime["projectedDeparture"]          = objQDateTime;
-    objQDateTime["actualArrival"]               = objQDateTime;
-    objQDateTime["actualDeparture"]             = objQDateTime;
+    objQDateTime["baseLineArrival"]             = objQDateTimeInit;
+    objQDateTime["baseLineDeparture"]           = objQDateTimeInit;
+    objQDateTime["plannedArrival"]              = objQDateTimeInit;
+    objQDateTime["plannedDeparture"]            = objQDateTimeInit;
+    objQDateTime["projectedArrival"]            = objQDateTimeInit;
+    objQDateTime["projectedDeparture"]          = objQDateTimeInit;
+    objQDateTime["actualArrival"]               = objQDateTimeInit;
+    objQDateTime["actualDeparture"]             = objQDateTimeInit;
 
     objGMRoute["route"]                         = objGMRouteInit;
 
@@ -91,7 +92,7 @@ GMStop::GMStop()
     objGMStop["redeliveryStop"]                 = objGMStopInit;
     objGMStop["parentRedeliveryStop"]           = objGMStopInit;
 
-    memberList << objBool.keys
+    memberList << objBool.keys()
                << objInt.keys()
                << objDouble.keys()
                << objQString.keys()
@@ -1068,37 +1069,37 @@ void GMStop::setMembersNull()
     for(auto key : objGMRoute.keys())
     {
         delete objGMRoute[key];
-        objGMRoute[key] = objGMRoute;
+        objGMRoute[key] = objGMRouteInit;
     }
 
     for(auto key : objGMOrder.keys())
     {
         delete objGMOrder[key];
-        objGMOrder[key] = objGMOrder;
+        objGMOrder[key] = objGMOrderInit;
     }
 
     for(auto key : objGMLocation.keys())
     {
         delete objGMLocation[key];
-        objGMLocation[key] = objGMLocation;
+        objGMLocation[key] = objGMLocationInit;
     }
 
     for(auto key : objGMStopType.keys())
     {
         delete objGMStopType[key];
-        objGMStopType[key] = objGMStopType;
+        objGMStopType[key] = objGMStopTypeInit;
     }
 
     for(auto key : objGMUdfs.keys())
     {
         delete objGMUdfs[key];
-        objGMUdfs[key] = objGMUdfs;
+        objGMUdfs[key] = objGMUdfsInit;
     }
 
     for(auto key : objGMStop.keys())
     {
         delete objGMStop[key];
-        objGMStop[key] = objGMStop;
+        objGMStop[key] = objGMStopInit;
     }
 }
 
@@ -1202,7 +1203,7 @@ void GMStop::importEngine(const QJsonObject &json)
         if(importedMember[key])
         {
             if(objDouble[key])
-                objDouble[key] = json[key].toDouble();
+                *objDouble[key] = json[key].toDouble();
             else
                 objDouble[key] = new double(json[key].toDouble());
         }

@@ -39,8 +39,8 @@ void RouteWorker::process() {
     QJsonDocument jDoc(test.exportJson());
     //QTextStream(out) stdout;
     //qDebug() << "hasPicture null? " << (false == test.getHasPicture());
-    test.setHasPicture(true);
-    test.setHasPicture(false);
+    //test.setHasPicture(true);
+    //test.setHasPicture(false);
     //qDebug() << "hasPicture null? " << (false == test.getHasPicture());
     qDebug() << QString(jDoc.toJson(QJsonDocument::Indented));
     //out << QString(jDoc.toJson(QJsonDocument::Indented));

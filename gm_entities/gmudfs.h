@@ -6,9 +6,11 @@
 class GMUdfs
 {
 public:
+    GMUdfs();
+    ~GMUdfs();
     //BEGIN COMPUTATION FUNCTIONS
-    void importJson(const QJsonArray &json);
-    void appendJson(const Q &json);
+    void importJson(const QJsonObject &json);
+    void appendJson(const QJsonObject &json);
     QJsonObject exportJson();
     void setMembersNull();
 
@@ -21,14 +23,14 @@ private:
     QJsonObject exportEngine();
     void importEngine(const QJsonObject &json);
 
-    //Memeber subsection
-    bool *objUdfsInit = Q_NULLPTR;
+    //Member subsection
+    QString *objQStringInit = Q_NULLPTR;
 
-    QStringList memberList;
-
-    QMap<QString, QString*>             objQString;
+    QMap<QString, QString*> objQString;
 
     //Meta member to track which members are imported
-    QMap<QString, bool>             importedMember;
+    QMap<QString, bool>     importedMember;
+    QStringList             memberList;
+};
 
 #endif // GMUDFS_H

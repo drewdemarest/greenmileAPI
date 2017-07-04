@@ -37,7 +37,10 @@ SOURCES += main.cpp\
     gm_entities/gmorganization.cpp \
     gm_entities/gmstop.cpp \
     gm_entities/gmi18nlocale.cpp \
-    gm_entities/gmorder.cpp
+    gm_entities/gmorder.cpp \
+    gm_entities/gmlocation.cpp \
+    gm_entities/gmstoptype.cpp \
+    gm_entities/gmudfs.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -53,7 +56,10 @@ HEADERS  += mainwindow.h \
     gm_entities/gmorganization.h \
     gm_entities/gmstop.h \
     gm_entities/gmi18nlocale.h \
-    gm_entities/gmorder.h
+    gm_entities/gmorder.h \
+    gm_entities/gmlocation.h \
+    gm_entities/gmstoptype.h \
+    gm_entities/gmudfs.h
 
 
 FORMS    += mainwindow.ui \

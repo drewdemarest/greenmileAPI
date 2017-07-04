@@ -8,6 +8,7 @@ class GMOrder;
 class GMLocation;
 class GMStopType;
 class GMUdfs;
+class GMOrganization;
 
 class GMStop
 {

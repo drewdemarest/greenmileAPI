@@ -4,3 +4,8 @@ GMOrder::GMOrder()
 {
 
 }
+
+GMOrder::~GMOrder()
+{
+
+}

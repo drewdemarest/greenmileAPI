@@ -1,6 +1,9 @@
 #include "gmstop.h"
 #include "gmroute.h"
-
+#include "gmorder.h"
+#include "gmlocation.h"
+#include "gmstoptype.h"
+#include "gmudfs.h"
 
 GMStop::GMStop()
 {
@@ -822,7 +825,7 @@ void GMStop::setRedeliveryStop(GMStop &redeliveryStop)
     if(objGMStop["redeliveryStop"])
         *objGMStop["redeliveryStop"] = redeliveryStop;
     else
-        objGMStop["redeliveryStop"] = new QString(redeliveryStop);
+        objGMStop["redeliveryStop"] = new GMStop(redeliveryStop);
 }
 
 GMStop *GMStop::getParentRedeliveryStop() const
@@ -835,7 +838,7 @@ void GMStop::setParentRedeliveryStop(GMStop &parentRedeliveryStop)
     if(objGMStop["parentRedeliveryStop"])
         *objGMStop["parentRedeliveryStop"] = parentRedeliveryStop;
     else
-        objGMStop["parentRedeliveryStop"] = new QString(parentRedeliveryStop);
+        objGMStop["parentRedeliveryStop"] = new GMStop(parentRedeliveryStop);
 }
 
 float *GMStop::getArrivalLatitude() const
@@ -1006,6 +1009,26 @@ void GMStop::setSignatureFilePath(QString &signatureFilePath)
         *objQString["signatureFilePath"] = signatureFilePath;
     else
         objQString["signatureFilePath"] = new QString(signatureFilePath);
+}
+
+void GMStop::compareJson(const QJsonObject &json)
+{
+
+}
+
+void GMStop::setImportedMembersFalse()
+{
+
+}
+
+QJsonObject GMStop::exportEngine()
+{
+
+}
+
+void GMStop::importEngine(const QJsonObject &json)
+{
+
 }
 
 

@@ -1011,6 +1011,26 @@ void GMStop::setSignatureFilePath(QString &signatureFilePath)
         objQString["signatureFilePath"] = new QString(signatureFilePath);
 }
 
+void GMStop::importJson(const QJsonObject &json)
+{
+
+}
+
+void GMStop::appendJson(const QJsonObject &json)
+{
+
+}
+
+QJsonObject GMStop::exportJson()
+{
+
+}
+
+void GMStop::setMembersNull()
+{
+
+}
+
 void GMStop::compareJson(const QJsonObject &json)
 {
 

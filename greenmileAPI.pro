@@ -59,7 +59,8 @@ HEADERS  += mainwindow.h \
     gm_entities/gmorder.h \
     gm_entities/gmlocation.h \
     gm_entities/gmstoptype.h \
-    gm_entities/gmudfs.h
+    gm_entities/gmudfs.h \
+    gm_entities/gmtemplates.hpp
 
 
 FORMS    += mainwindow.ui \

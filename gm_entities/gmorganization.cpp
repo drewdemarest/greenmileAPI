@@ -146,13 +146,14 @@ void GMOrganization::setParentOrganization(const GMOrganization &organization)
 
 //GMLastModifier getLastModifier() const;
 //void setLastModifier(GMLastModifier &lastModifier);
+*/
 
 void GMOrganization::importJson(const QJsonObject &json)
 {
     compareJson(json);
     importEngine(json);
 }
-*/
+
 
 QJsonObject GMOrganization::exportJson()
 {
@@ -191,11 +192,7 @@ void GMOrganization::setImportedMembersFalse()
 
 void GMOrganization::setMembersNull()
 {
-    for(auto key : objInt.keys())
-    {
-        delete objInt[key];
-        objInt[key] = objIntInit;
-    }
+    setMapNull(objInt);
 
     for(auto key : objDouble.keys())
     {

@@ -2,6 +2,7 @@
 #define GMORGANIZATION_H
 
 #include <QtCore>
+#include "gmtemplates.hpp"
 
 class GMI18NLocale;
 

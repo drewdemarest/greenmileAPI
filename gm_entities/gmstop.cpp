@@ -1148,13 +1148,13 @@ QJsonObject GMStop::exportEngine()
         if(importedMember[key] && objGMRoute[key])
             json[key] = objGMRoute[key]->exportJson();
 
-    for(auto key : objGMOrder.keys())
-        if(importedMember[key] && objGMOrder[key])
-            json[key] = objGMOrder[key]->exportJson();
+//    for(auto key : objGMOrder.keys())
+//        if(importedMember[key] && objGMOrder[key])
+//            json[key] = objGMOrder[key]->exportJson();
 
-    for(auto key : objGMLocation.keys())
-        if(importedMember[key] && objGMLocation[key])
-            json[key] = objGMLocation[key]->exportJson();
+//    for(auto key : objGMLocation.keys())
+//        if(importedMember[key] && objGMLocation[key])
+//            json[key] = objGMLocation[key]->exportJson();
 
     for(auto key : objGMStopType.keys())
         if(importedMember[key] && objGMStopType[key])
@@ -1247,33 +1247,33 @@ void GMStop::importEngine(const QJsonObject &json)
         }
     }
 
-    for(auto key : objGMOrder.keys())
-    {
-        if(importedMember[key])
-        {
-            if(objGMOrder[key])
-                objGMOrder[key]->importJson(json[key].toObject());
-            else
-            {
-                objGMOrder[key] = new GMOrder();
-                objGMOrder[key]->importJson(json[key].toObject());
-            }
-        }
-    }
+//    for(auto key : objGMOrder.keys())
+//    {
+//        if(importedMember[key])
+//        {
+//            if(objGMOrder[key])
+//                objGMOrder[key]->importJson(json[key].toObject());
+//            else
+//            {
+//                objGMOrder[key] = new GMOrder();
+//                objGMOrder[key]->importJson(json[key].toObject());
+//            }
+//        }
+//    }
 
-    for(auto key : objGMLocation.keys())
-    {
-        if(importedMember[key])
-        {
-            if(objGMLocation[key])
-                objGMLocation[key]->importJson(json[key].toObject());
-            else
-            {
-                objGMLocation[key] = new GMLocation();
-                objGMLocation[key]->importJson(json[key].toObject());
-            }
-        }
-    }
+//    for(auto key : objGMLocation.keys())
+//    {
+//        if(importedMember[key])
+//        {
+//            if(objGMLocation[key])
+//                objGMLocation[key]->importJson(json[key].toObject());
+//            else
+//            {
+//                objGMLocation[key] = new GMLocation();
+//                objGMLocation[key]->importJson(json[key].toObject());
+//            }
+//        }
+//    }
 
     for(auto key : objGMStopType.keys())
     {

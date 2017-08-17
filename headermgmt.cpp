@@ -18,10 +18,9 @@ HeaderMGMT::HeaderMGMT(QStringListModel *headerModel, QWidget *parent) :
     connect(ui->removeAllHeaderButton, &QPushButton::clicked, this, &HeaderMGMT::removeAllHeaders);
 }
 
-
 HeaderMGMT::~HeaderMGMT()
 {
-    delete authDialog;
+    authDialog->deleteLater();
     delete ui;
 }
 

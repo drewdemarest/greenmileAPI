@@ -29,18 +29,8 @@ SOURCES += main.cpp\
     headermgmt.cpp \
     simplecrypt.cpp \
     qjsonmodel.cpp \
-    threads/routethreadmanager.cpp \
-    threads/routeworker.cpp \
-    threads/threadmanager.cpp \
-    threads/worker.cpp \
-    gm_entities/gmroute.cpp \
-    gm_entities/gmorganization.cpp \
-    gm_entities/gmstop.cpp \
-    gm_entities/gmi18nlocale.cpp \
-    gm_entities/gmorder.cpp \
-    gm_entities/gmlocation.cpp \
-    gm_entities/gmstoptype.cpp \
-    gm_entities/gmudfs.cpp
+    gmTypes/gm_i18nlocale.cpp \
+    gmTypes/gm_organization.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -48,21 +38,14 @@ HEADERS  += mainwindow.h \
     headermgmt.h \
     simplecrypt.h \
     qjsonmodel.h \
-    threads/routethreadmanager.h \
-    threads/routeworker.h \
-    threads/threadmanager.h \
-    threads/worker.h \
-    gm_entities/gmroute.h \
-    gm_entities/gmorganization.h \
-    gm_entities/gmstop.h \
-    gm_entities/gmi18nlocale.h \
-    gm_entities/gmorder.h \
-    gm_entities/gmlocation.h \
-    gm_entities/gmstoptype.h \
-    gm_entities/gmudfs.h \
-    gm_entities/gmtemplates.hpp
-
+    jsonTypes/jsonType.hpp \
+    gmTypes/gm_i18nlocale.h \
+    gmTypes/gm_organization.h
 
 FORMS    += mainwindow.ui \
     authdialog.ui \
     headermgmt.ui \
+
+INCLUDEPATH += /usr/include/boost
+
+LIBS    += -lboost_system

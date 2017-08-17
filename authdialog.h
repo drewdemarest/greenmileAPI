@@ -12,9 +12,6 @@ class AuthDialog : public QDialog
 {
     Q_OBJECT
 
-signals:
-    void authenticationAdded(QString authentication);
-
 public:
     explicit AuthDialog(QWidget *parent = 0);
     ~AuthDialog();
@@ -22,6 +19,9 @@ public:
 private:
     Ui::AuthDialog *ui;
     void createCredentials();
+
+signals:
+    void authenticationAdded(QString authentication);
 
 };
 

@@ -9,7 +9,7 @@
 #include "headermgmt.h"
 #include "qjsonmodel.h"
 #include "simplecrypt.h"
-#include "threads/routethreadmanager.h"
+#include "gmTypes/gm_i18nlocale.h"
 
 namespace Ui {
 class MainWindow;
@@ -24,8 +24,6 @@ public:
     ~MainWindow();
 
 private:
-    RouteThreadManager *rtm = new RouteThreadManager(this);
-
     QStringList *headers;
     QStringListModel *headerModel;
     QJsonModel *jsonModel;
@@ -40,7 +38,6 @@ private:
     void saveSettings();
 
 public slots:
-    void beginProcess();
     void displayStringList(QStringList sl);
 };
 

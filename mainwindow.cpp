@@ -7,7 +7,7 @@ using namespace std;
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     headers(new QStringList),
-    headerModel(new QStringListModel),
+    headerModel(new QStringListModel(this)),
     jsonModel(new QJsonModel),
     settings(new QSettings(QApplication::applicationDirPath() + "/settings.ini", QSettings::IniFormat)),
     ui(new Ui::MainWindow)
@@ -18,12 +18,11 @@ MainWindow::MainWindow(QWidget *parent) :
     headerDialog = new HeaderMGMT(headerModel, this);
     ui->jsonTreeView->setModel(jsonModel);
 
-    connect(rtm, SIGNAL(threadErrors(QStringList)), this, SLOT(displayStringList(QStringList)));
-    connect(rtm, SIGNAL(managerErrors(QStringList)), this, SLOT(displayStringList(QStringList)));
-
     connect(ui->queryButton, &QPushButton::clicked, this, &MainWindow::on_pushButton_clicked);
     connect(ui->queryButton, &QPushButton::clicked, this, &MainWindow::saveSettings);
     connect(ui->addHeaderButton, &QPushButton::clicked, headerDialog, &HeaderMGMT::show);
+
+    GM_I18NLocale test;
     //connect(headerDialog, SIGNAL(getRequestHeaders(QList<QString>*)), this, &MainWindow::updateHeaders);
 
 //    SimpleCrypt crypto(Q_UINT64_C(0x0c2ad4a4acb9f023)); //some random number
@@ -85,10 +84,8 @@ void MainWindow::saveSettings()
 MainWindow::~MainWindow() {
     settings->deleteLater();
     headerDialog->deleteLater();
-    rtm->deleteLater();
-
-    delete jsonModel;
-    delete headerModel;
+    headerModel->deleteLater();
+    jsonModel->deleteLater();
     delete headers;
     delete ui;
 }
@@ -97,7 +94,7 @@ void MainWindow::on_pushButton_clicked() {
     // trigger the request - see the examples in the following sections
     QString msg;
     QString address = ui->addressInput->text().toLatin1();
-    beginProcess();
+
 
     if(ui->schemeComboBox->currentIndex() > 0)
     {
@@ -126,7 +123,6 @@ void MainWindow::on_pushButton_clicked() {
 
     QNetworkAccessManager nam;
 
-
     if(ui->methodComboBox->currentIndex() == 1){
         QNetworkReply *reply = nam.post(request, QJsonDocument(jDoc).toJson());
 
@@ -145,9 +141,8 @@ void MainWindow::on_pushButton_clicked() {
 
             msg = reply->readAll();
 
-            QByteArray hmm = msg.toUtf8();
             QJsonParseError err;
-            QJsonDocument jDoc = QJsonDocument::fromJson(hmm, &err);
+            QJsonDocument jDoc = QJsonDocument::fromJson(QByteArray(msg.toUtf8()), &err);
 
             jsonModel->loadJson(QByteArray::fromStdString(jDoc.toJson(QJsonDocument::Compact).toStdString()));
             ui->resultTextEdit->setText(jDoc.toJson(QJsonDocument::Indented));
@@ -161,11 +156,6 @@ void MainWindow::on_pushButton_clicked() {
         }
         reply->deleteLater();
     }
-}
-
-void MainWindow::beginProcess()
-{
-    rtm->initThreads(1);
 }
 
 void MainWindow::displayStringList(QStringList sl)

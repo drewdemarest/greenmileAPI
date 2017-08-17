@@ -89,8 +89,6 @@ private:
     QJsonTreeItem * mRootItem;
     QJsonDocument mDocument;
     QStringList mHeaders;
-
-
 };
 
 #endif // QJSONMODEL_H

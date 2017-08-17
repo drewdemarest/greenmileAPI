@@ -23,6 +23,7 @@ private:
 
     QString key;
     unique_ptr<T> value;
+    QVariant trash;
 
     bool validJson;
     bool validMap;
@@ -46,4 +47,6 @@ template <class T>
 inline void JsonType<T>::createMapFormat()
 {
     qDebug() << "Map are valid? Hurp";
+    trash.setValue(*value.get());
+    qDebug() << "trash variant of type t can conver to int?" << trash.convert(QMetaType::Int);
 }

@@ -9,19 +9,33 @@
 using namespace std;
 class GM_Organization;
 
-
 class GM_I18NLocale
 {
+
 
 public:
     GM_I18NLocale();
     ~GM_I18NLocale();
 private:
-    JsonType<int>       ik;
-    JsonType<int>       id{"Tato"};
-    JsonType<QString>   iz{"Potato"};
-    JsonType<long>      it{"derp"};
-    unique_ptr<QString>         key;
+
+    const QStringList knownKeys
+    {
+        "key",
+        "parentLocale",
+        "organizationId",
+        "language",
+        "country",
+        "description",
+        "dateFormat",
+        "timeFormat",
+        "currency",
+        "decimalSymbol",
+        "degitalGrouping"
+    };
+
+    QMap<QString, shared_ptr<QString>> testMap {{"Test0", shared_ptr<QString>()}};
+
+    shared_ptr<QString>         key;
     unique_ptr<GM_I18NLocale>   parentLocale;
     unique_ptr<GM_Organization> organizationId;
     unique_ptr<QString>         language;

@@ -8,45 +8,49 @@ template <class T>
 class JsonType
 {
 public:
-    JsonType(): key(), value(new T()){createMapFormat();}
-    JsonType(const QString &qs): key(qs), value(new T()){createMapFormat();}
-    JsonType(const QString &qs, const T &t): key(qs), value(new T(t)){createMapFormat();}
+    JsonType(){construct();}
+    JsonType(const QString &qs): key(qs){construct();}
+    JsonType(const QString &qs, const T &t): key(qs), value(new T(t)){construct();}
+    JsonType(const QString &qs, const QJsonValue &jv): key(qs), jsonValue(jv){construct();}
+    JsonType(const QString &qs, const QVariant &qv): key(qs), variantValue(qv){construct();}
+    JsonType(const QString &qs, const QJsonObject &qjo): key(qs), jsonValue(qjo.value(qs)){construct();}
+    JsonType(const QString &qs, const QVariantMap &qvm): key(qs), variantValue(qvm.value(qs)){construct();}
 
     inline QString getKey();
-    inline T getValue();
-
-    bool isMapValid();
-    bool isJsonValid();
+    inline shared_ptr<T> getValue();
+    inline QJsonValue getJsonValue();
+    inline QVariant getVariantValue();
+    inline QVariantMap getVariantMap();
+    inline QJsonObject getJsonObject();
 
 private:
-    inline void createMapFormat();
+    inline void construct();
 
-    QString key;
-    unique_ptr<T> value;
-    QVariant trash;
-
-    bool validJson;
-    bool validMap;
-    QJsonObject jsonFormat;
-    QVariantMap varMapFormat;
+    QString         key;
+    shared_ptr<T>   value;
+    QVariant        variantValue;
+    QJsonValue      jsonValue;
 };
 
 template <class T>
-inline T JsonType<T>::getValue()
+inline shared_ptr<T> JsonType<T>::getValue()
 {
-    return *value.get();
+    return value;
 }
 
-template<>
-inline long JsonType<long>::getValue()
-{
-    return 1000L;
-}
+//template<>
+//inline long JsonType<long>::getValue()
+//{
+//    return 1000L;
+//}
 
 template <class T>
-inline void JsonType<T>::createMapFormat()
+inline void JsonType<T>::construct()
 {
-    qDebug() << "Map are valid? Hurp";
-    trash.setValue(*value.get());
-    qDebug() << "trash variant of type t can conver to int?" << trash.convert(QMetaType::Int);
+    if(value)
+        variantValue.setValue(*value.get());
+    else
+        qDebug() << "VALUE NULL";
+
+   // qDebug() << "trash variant of type t can conver to int?" << trash.convert(QMetaType::Int);
 }

@@ -3,9 +3,15 @@
 
 GM_I18NLocale::GM_I18NLocale()
 {
-    qDebug() << id.getValue();
-    qDebug() << it.getValue();
-    qDebug() << iz.getValue();
+    qDebug() << bool(testMap.value("Test0"));
+
+    //key = make_shared<QString>("potato");
+
+    testMap["Test0"].reset(new QString("Potato"));
+
+    qDebug() << testMap["Test0"].use_count() << "," << key.use_count();
+
+    qDebug() << bool(testMap.value("Test0"));
 }
 
 GM_I18NLocale::~GM_I18NLocale()

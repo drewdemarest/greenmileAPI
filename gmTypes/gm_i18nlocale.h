@@ -33,25 +33,25 @@ private:
         "degitalGrouping"
     };
 
-    shared_ptr<QVariant>         key = make_shared<QVariant>();
-    unique_ptr<GM_I18NLocale>    parentLocale;
-    unique_ptr<GM_Organization> organizationId;
-    shared_ptr<QVariant>         language;
-    unique_ptr<QVariant>         country;
-    unique_ptr<QVariant>         description;
-    unique_ptr<QVariant>         dateFormat;
-    unique_ptr<QVariant>         timeFormat;
-    unique_ptr<QVariant>         currency;
-    unique_ptr<QVariant>         decimalSymbol;
-    unique_ptr<QVariant>         digitalGrouping;
+    JsonType<int>         key{"Doddle", QVariant(QString("Poopoo"))};
+    //GM_I18NLocale                parentLocale
+    //GM_Organization              organizationId;
+    JsonType<int>         language{"Doodle", QVariant()};
+    JsonType<int>         country{"intKey", 10};
+    JsonType<int>         description;
+    JsonType<int>         dateFormat;
+    JsonType<int>         timeFormat;
+    JsonType<int>         currency;
+    JsonType<int>         decimalSymbol;
+    JsonType<int>         digitalGrouping;
 
-    QJsonObject                 jsonForm;
+    QJsonObject           sonForm;
 
-    QMap<QString, shared_ptr<QVariant>> testMap
-    {
-        {"Test0", key},
-        {"Test1", language}
-    };
+//    QMap<QString, shared_ptr<QVariant>> testMap
+//    {
+//        {"Test0", key},
+//        {"Test1", language}
+//    };
 };
 
 #endif // GM_I18NLOCALE_H

@@ -45,7 +45,3 @@ HEADERS  += mainwindow.h \
 FORMS    += mainwindow.ui \
     authdialog.ui \
     headermgmt.ui \
-
-INCLUDEPATH += /usr/include/boost
-
-LIBS    += -lboost_system

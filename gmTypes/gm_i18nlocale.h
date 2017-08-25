@@ -33,7 +33,7 @@ private:
         "degitalGrouping"
     };
 
-    JsonType<int>         key{"Doddle", QVariant(QString("Poopoo"))};
+    JsonType<int>         key{"Doddle", QVariant(int(10))};
     //GM_I18NLocale                parentLocale
     //GM_Organization              organizationId;
     JsonType<int>         language{"Doodle", QVariant()};

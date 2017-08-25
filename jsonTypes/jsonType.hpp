@@ -67,15 +67,34 @@ inline void JsonType<T>::construct()
             variantValue = QVariant(*value.get());
             jsonValue = jsonValue.fromVariant(variantValue);
             if(variantValue.isNull())
-                qDebug() << "Warning, variantValuse did not properly map";
+                qDebug() << "Warning, 1 variantValuse did not properly map";
+
             if(jsonValue.isNull())
-                qDebug() << "Warning, jsonValue did not properly map";
+                qDebug() << "Warning, 1 jsonValue did not properly map";
             return;
         }
 
         if(!variantValue.isNull())
         {
             value.reset(new T(variantValue.value<T>()));
+            jsonValue = jsonValue.fromVariant(variantValue);
+
+            qDebug() << "And... " << *value.get();
+            qDebug() << "And le json is... " << jsonValue.toString() << "to int?" << jsonValue.toInt();
+
+            if(!value)
+            {
+                qDebug() << "Warning, 2 shared_ptr value did not properly map" << *value.get();
+            }
+
+            if(jsonValue.isNull())
+                qDebug() << "Warning, 2 jsonValue did not map!";
+
+            return;
+        }
+        if(!jsonValue.Null())
+        {
+
         }
 
 

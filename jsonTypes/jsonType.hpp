@@ -49,8 +49,9 @@ inline void JsonType<T>::construct()
         {
             variantValue = QVariant(*value.get());
             jsonValue = jsonValue.fromVariant(variantValue);
+            //qDebug() << key  <<  jsonValue << variantValue;
             if(variantValue.isNull())
-                qDebug() << "Warning, 1 variantValuse did not properly map";
+                qDebug() << "Warning, 1 variantValue did not properly map";
 
             if(jsonValue.isNull())
                 qDebug() << "Warning, 1 jsonValue did not properly map";
@@ -61,32 +62,44 @@ inline void JsonType<T>::construct()
         {
             value.reset(new T(variantValue.value<T>()));
             jsonValue = jsonValue.fromVariant(variantValue);
+            //qDebug() << key  <<  jsonValue << variantValue;
+
             if(!value)
-            {
                 qDebug() << "Warning, 2 shared_ptr value did not properly map" << *value.get();
-            }
 
             if(jsonValue.isNull())
                 qDebug() << "Warning, 2 jsonValue did not map!";
 
             return;
         }
-        if(!jsonValue.isNull())
+        if(!jsonValue.isNull() && !jsonValue.isUndefined())
         {
-            variantValue = jsonValue.toVariant();
+            variantValue = jsonValue.toVariant().value<T>();
             value.reset(new T(variantValue.value<T>()));
+            jsonValue = jsonValue.fromVariant(variantValue);
+
+//            qDebug() << jsonValue.fromVariant(variantValue);
+
+//            if(!jsonValue.fromVariant(variantValue).isNull())
+//            {
+//                jsonValue = variantValue.toJsonValue();
+//            }
+//            else
+//                qDebug() << "Warning: jsonValue is not internally synced to " << typeid(T).name() << " jsonValue will map to a " << jsonValue;
+
+
+            //qDebug() << key  <<  jsonValue << variantValue << *value.get();
+
             if(!value)
-            {
                 qDebug() << "Warning 3 shared_ptr value did not properly map" << *value.get();
-            }
 
             if(variantValue.isNull())
                 qDebug() << "Warning 3 jsonValue did not map!";
+
             return;
         }
         else
         {
-            qDebug() << "jsonValue, variant value, and value are null.";
             return;
         }
 

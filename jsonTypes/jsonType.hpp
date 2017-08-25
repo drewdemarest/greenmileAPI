@@ -12,13 +12,14 @@ public:
     JsonType(const QString &qs):                            key(qs){construct();}
     JsonType(const QString &qs, const T &t):                key(qs), value(new T(t)){construct();}
     JsonType(const QString &qs, const QJsonValue &jv):      key(qs), jsonValue(jv){construct();}
-    JsonType(const QString &qs, const QVariant &qv):        key(qs), variantValue(qv){qDebug() << "I USED OL2"; construct();}
-
+    JsonType(const QString &qs, const QVariant &qv):        key(qs), variantValue(qv){construct();}
     //Special ctor, will iterate through a QJsonObject
     //and set values if it finds a key match.
     JsonType(const QString &qs, const QJsonObject &qjo):    key(qs), jsonValue(qjo.value(qs)){construct();}
 
+    inline void setKey(QString &qs);
     inline void setValue(shared_ptr<T> t);
+
     inline QString getKey();
     inline shared_ptr<T> getValue();
     inline QJsonValue getJsonValue();
@@ -115,6 +116,12 @@ inline void JsonType<T>::setValue(shared_ptr<T> t)
     if(jsonValue.isNull())
         qDebug() << "Warning, 1 jsonValue did not properly map";
     return;
+}
+
+template <class T>
+inline QString JsonType<T>::getKey()
+{
+    return key;
 }
 
 template <class T>

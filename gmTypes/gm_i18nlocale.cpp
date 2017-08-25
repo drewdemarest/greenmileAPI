@@ -9,7 +9,6 @@ GM_I18NLocale::GM_I18NLocale()
     JsonType<QString>               key{"key", testObj};
     shared_ptr<QString> testRtn =   key.getValue();
     qDebug() << sizeof(key);
-    qDebug() << sizeof(QString("TesT"));
 
     JsonType<QString> test;
     test.setValue(testPtr);

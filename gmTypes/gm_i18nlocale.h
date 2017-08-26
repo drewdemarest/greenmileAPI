@@ -49,7 +49,7 @@ private:
     JsonType<QString>         timeFormat{"timeFormat", testLoc};
     JsonType<QString>         currency{"currency", testLoc};
     JsonType<QString>         decimalSymbol{"decimalGrouping", testLoc};
-    JsonType<QString>         digitalGrouping{"currency", testLoc};
+    JsonType<QString>         digitalGrouping;
 
     QJsonObject           jsonForm;
 

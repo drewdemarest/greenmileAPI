@@ -5,6 +5,8 @@
 #include <QApplication>
 #include <QtWidgets>
 #include <QtNetwork>
+#include <QOAuth2AuthorizationCodeFlow>
+#include <QOAuthHttpServerReplyHandler>
 #include <time.h>
 #include "headermgmt.h"
 #include "qjsonmodel.h"
@@ -24,6 +26,8 @@ public:
     ~MainWindow();
 
 private:
+    QOAuth2AuthorizationCodeFlow *google = new QOAuth2AuthorizationCodeFlow;
+
     QStringList *headers;
     QStringListModel *headerModel;
     QJsonModel *jsonModel;
@@ -39,6 +43,7 @@ private:
 
 public slots:
     void displayStringList(QStringList sl);
+    void debugReply();
 };
 
 #endif // MAINWINDOW_H

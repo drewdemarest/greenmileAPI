@@ -8,17 +8,37 @@ template <class T>
 class JsonType
 {
 public:
-    JsonType(){construct();}
-    JsonType(const QString &qs):                            key(qs){construct();}
-    JsonType(const QString &qs, const T &t):                key(qs), value(new T(t)){construct();}
-    JsonType(const QString &qs, const QJsonValue &jv):      key(qs), jsonValue(jv){construct();}
-    JsonType(const QString &qs, const QVariant &qv):        key(qs), variantValue(qv){construct();}
+    JsonType()
+    {construct();}
+
+    JsonType(const QString &qs):
+        key(qs)
+    {construct();}
+
+    JsonType(const QString &qs, const T &t):
+        key(qs), value(new T(t))
+    {construct();}
+
+    JsonType(const QString &qs, const QJsonValue &jv):
+        key(qs), jsonValue(jv)
+    {construct();}
+
+    JsonType(const QString &qs, const QVariant &qv):
+        key(qs), variantValue(qv)
+    {construct();}
+
     //Special ctor, will iterate through a QJsonObject
     //and set values if it finds a key match.
-    JsonType(const QString &qs, const QJsonObject &qjo):    key(qs), jsonValue(qjo.value(qs)){construct();}
+    JsonType(const QString &qs, const QJsonObject &qjo):
+        key(qs), jsonValue(qjo.value(qs))
+    {construct();}
 
     inline void setKey(QString &qs);
+
     inline void setValue(shared_ptr<T> t);
+
+    inline void setKeyVal(QString &qs, shared_ptr<T> t)
+    {setKey(qs); setValue(t);}
 
     inline QString getKey();
     inline shared_ptr<T> getValue();
@@ -62,7 +82,6 @@ inline void JsonType<T>::construct()
         {
             value.reset(new T(variantValue.value<T>()));
             jsonValue = jsonValue.fromVariant(variantValue);
-            //qDebug() << key  <<  jsonValue << variantValue;
 
             if(!value)
                 qDebug() << "Warning, 2 shared_ptr value did not properly map" << *value.get();
@@ -76,19 +95,10 @@ inline void JsonType<T>::construct()
         {
             variantValue = jsonValue.toVariant().value<T>();
             value.reset(new T(variantValue.value<T>()));
+
+            //An attempt to recast jsonValue with the correct type using
+            //variant's ability to typecast.
             jsonValue = jsonValue.fromVariant(variantValue);
-
-//            qDebug() << jsonValue.fromVariant(variantValue);
-
-//            if(!jsonValue.fromVariant(variantValue).isNull())
-//            {
-//                jsonValue = variantValue.toJsonValue();
-//            }
-//            else
-//                qDebug() << "Warning: jsonValue is not internally synced to " << typeid(T).name() << " jsonValue will map to a " << jsonValue;
-
-
-            //qDebug() << key  <<  jsonValue << variantValue << *value.get();
 
             if(!value)
                 qDebug() << "Warning 3 shared_ptr value did not properly map" << *value.get();
@@ -100,6 +110,7 @@ inline void JsonType<T>::construct()
         }
         else
         {
+            qDebug() << "Null obj" << key;
             return;
         }
 
@@ -111,15 +122,20 @@ inline void JsonType<T>::construct()
 }
 
 template <class T>
+inline void JsonType<T>::setKey(QString &qs)
+{
+    key = qs;
+}
+
+template <class T>
 inline void JsonType<T>::setValue(shared_ptr<T> t)
 {
     if(t)
     {
-    value = t;
-    variantValue = QVariant(*value.get());
-    jsonValue = jsonValue.fromVariant(variantValue);
+        value = t;
+        variantValue = QVariant(*value.get());
+        jsonValue = jsonValue.fromVariant(variantValue);
     }
-
     if(!value)
         qDebug() << "Warning, value is null.";
 

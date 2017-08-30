@@ -86,15 +86,52 @@ MainWindow::~MainWindow() {
     headerDialog->deleteLater();
     headerModel->deleteLater();
     jsonModel->deleteLater();
+    //google test
+    google->deleteLater();
     delete headers;
     delete ui;
 }
 
 void MainWindow::on_pushButton_clicked() {
     // trigger the request - see the examples in the following sections
+    // msg in this case is the server response.
+
+
+    //oauth test begin
+    google->setScope("https://www.googleapis.com/auth/spreadsheets.readonly");
+
+    connect(google, &QOAuth2AuthorizationCodeFlow::authorizeWithBrowser,
+        &QDesktopServices::openUrl);
+
+    const QJsonObject object = QJsonDocument::fromJson("{\"web\":{\"client_id\":\"721182423780-a2lo9n7aj1vvqhjo4gjt2q1bfeu39285.apps.googleusercontent.com\",\"project_id\":\"qtauthtest\",\"auth_uri\":\"https://accounts.google.com/o/oauth2/auth\",\"token_uri\":\"https://accounts.google.com/o/oauth2/token\",\"auth_provider_x509_cert_url\":\"https://www.googleapis.com/oauth2/v1/certs\",\"client_secret\":\"rwFKYSmuteyvmbBHVrjSUF-E\",\"redirect_uris\":[\"http://localhost:8080/cb\"]}}").object();
+
+    const auto settingsObject = object["web"].toObject();
+
+    qDebug() << settingsObject["auth_uri"].toString();
+
+    const QUrl authUri(settingsObject["auth_uri"].toString());
+    const auto clientId = settingsObject["client_id"].toString();
+    const QUrl tokenUri(settingsObject["token_uri"].toString());
+    const auto clientSecret(settingsObject["client_secret"].toString());
+    const auto redirectUris = settingsObject["redirect_uris"].toArray();
+    const QUrl redirectUri(redirectUris[0].toString()); // Get the first URI
+    const auto port = static_cast<quint16>(redirectUri.port()); // Get the port
+
+    google->setAuthorizationUrl(authUri);
+    google->setClientIdentifier(clientId);
+    google->setAccessTokenUrl(tokenUri);
+    google->setClientIdentifierSharedKey(clientSecret);
+
+    auto replyHandler = new QOAuthHttpServerReplyHandler(port, this);
+    google->setReplyHandler(replyHandler);
+
+    google->grant();
+
+    connect(google, &QOAuth2AuthorizationCodeFlow::granted, this, &MainWindow::debugReply);
+    //oauth test end
+
     QString msg;
     QString address = ui->addressInput->text().toLatin1();
-
 
     if(ui->schemeComboBox->currentIndex() > 0)
     {
@@ -104,12 +141,15 @@ void MainWindow::on_pushButton_clicked() {
     {
         address = "http://" + address;
     }
+
     qDebug() << address;
 
+    //Format and attach url to network request.
     QUrl url(address.toLatin1());
-
     QNetworkRequest request(url);
 
+    //For each header, split on a : and attach to
+    //the request.
     for(auto h : headerModel->stringList())
     {
         QStringList chunks = h.split(":");
@@ -118,8 +158,8 @@ void MainWindow::on_pushButton_clicked() {
         request.setRawHeader(ba0, ba1);
     }
 
-    QString query = ui->queryInput->toPlainText();
-    QJsonDocument jDoc = QJsonDocument::fromJson(query.toUtf8());
+    QByteArray query = ui->queryInput->toPlainText().toUtf8();
+    QJsonDocument jDoc = QJsonDocument::fromJson(query);
 
     QNetworkAccessManager nam;
 
@@ -138,14 +178,17 @@ void MainWindow::on_pushButton_clicked() {
         if (reply->error() == QNetworkReply::NoError) {
             // communication was successful
 
-
             msg = reply->readAll();
 
             QJsonParseError err;
             QJsonDocument jDoc = QJsonDocument::fromJson(QByteArray(msg.toUtf8()), &err);
 
+            //Give msg result to the JsonTreeVisualizer.
             jsonModel->loadJson(QByteArray::fromStdString(jDoc.toJson(QJsonDocument::Compact).toStdString()));
+
+            //Give msg result to the textEditWidget.
             ui->resultTextEdit->setText(jDoc.toJson(QJsonDocument::Indented));
+
             //qDebug() << ui->resultTextEdit->toPlainText();
         }
 
@@ -154,6 +197,7 @@ void MainWindow::on_pushButton_clicked() {
             msg = "Error: " + reply->errorString();
             QMessageBox::information(this, "", msg);
         }
+
         reply->deleteLater();
     }
 }
@@ -165,3 +209,13 @@ void MainWindow::displayStringList(QStringList sl)
         QMessageBox::information(this, "", message);
 }
 
+void MainWindow::debugReply()
+{
+    auto reply = google->get(QUrl("https://sheets.googleapis.com/v4/spreadsheets/1KA7c9bbG2p4f8SFe5ibbkIycwt0wukRe2_xpTB3SI6A/values/Monday"));
+
+    while(!reply->isFinished())
+        qApp->processEvents();
+
+    qDebug() << reply->readAll();
+    reply->deleteLater();
+}

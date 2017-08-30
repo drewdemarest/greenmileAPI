@@ -15,6 +15,7 @@ class GM_I18NLocale
 
 public:
     GM_I18NLocale();
+    GM_I18NLocale(QJsonObject &qjo);
     ~GM_I18NLocale();
 private:
 

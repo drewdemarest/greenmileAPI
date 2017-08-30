@@ -12,6 +12,13 @@ GM_I18NLocale::GM_I18NLocale()
     digitalGrouping = JsonType<QString>{"digitalGrouping", testLoc};
     tobj.insert(digitalGrouping.getKey(), digitalGrouping.getJsonValue());
     qDebug() << QJsonDocument(tobj).toJson(QJsonDocument::Indented);
+
+    shared_ptr<QString> digitalGroupingVal = make_shared<QString>(QString("New Val!"));
+    QString digitalGroupingKey("New Key!");
+    digitalGrouping.setKeyVal(digitalGroupingKey, digitalGroupingVal);
+
+    tobj.insert(digitalGrouping.getKey(), digitalGrouping.getJsonValue());
+    qDebug() << QJsonDocument(tobj).toJson(QJsonDocument::Indented);
 }
 
 GM_I18NLocale::~GM_I18NLocale()

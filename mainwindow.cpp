@@ -6,6 +6,7 @@ using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
+    netConct(new NetConnect),
     headers(new QStringList),
     headerModel(new QStringListModel(this)),
     jsonModel(new QJsonModel),
@@ -86,120 +87,54 @@ MainWindow::~MainWindow() {
     headerDialog->deleteLater();
     headerModel->deleteLater();
     jsonModel->deleteLater();
+    netConct->deleteLater();
     //google test
-    google->deleteLater();
+    //google->deleteLater();
     delete headers;
     delete ui;
 }
 
 void MainWindow::on_pushButton_clicked() {
-    // trigger the request - see the examples in the following sections
-    // msg in this case is the server response.
 
-
-    //oauth test begin
-    google->setScope("https://www.googleapis.com/auth/spreadsheets.readonly");
-
-    connect(google, &QOAuth2AuthorizationCodeFlow::authorizeWithBrowser,
-        &QDesktopServices::openUrl);
-
-    const QJsonObject object = QJsonDocument::fromJson("{\"web\":{\"client_id\":\"721182423780-a2lo9n7aj1vvqhjo4gjt2q1bfeu39285.apps.googleusercontent.com\",\"project_id\":\"qtauthtest\",\"auth_uri\":\"https://accounts.google.com/o/oauth2/auth\",\"token_uri\":\"https://accounts.google.com/o/oauth2/token\",\"auth_provider_x509_cert_url\":\"https://www.googleapis.com/oauth2/v1/certs\",\"client_secret\":\"rwFKYSmuteyvmbBHVrjSUF-E\",\"redirect_uris\":[\"http://localhost:8080/cb\"]}}").object();
-
-    const auto settingsObject = object["web"].toObject();
-
-    qDebug() << settingsObject["auth_uri"].toString();
-
-    const QUrl authUri(settingsObject["auth_uri"].toString());
-    const auto clientId = settingsObject["client_id"].toString();
-    const QUrl tokenUri(settingsObject["token_uri"].toString());
-    const auto clientSecret(settingsObject["client_secret"].toString());
-    const auto redirectUris = settingsObject["redirect_uris"].toArray();
-    const QUrl redirectUri(redirectUris[0].toString()); // Get the first URI
-    const auto port = static_cast<quint16>(redirectUri.port()); // Get the port
-
-    google->setAuthorizationUrl(authUri);
-    google->setClientIdentifier(clientId);
-    google->setAccessTokenUrl(tokenUri);
-    google->setClientIdentifierSharedKey(clientSecret);
-
-    auto replyHandler = new QOAuthHttpServerReplyHandler(port, this);
-    google->setReplyHandler(replyHandler);
-
-    google->grant();
-
-    connect(google, &QOAuth2AuthorizationCodeFlow::granted, this, &MainWindow::debugReply);
-    //oauth test end
-
-    QString msg;
     QString address = ui->addressInput->text().toLatin1();
+    QString body = ui->queryInput->toPlainText();
+    QStringList headers = headerModel->stringList();
 
-    if(ui->schemeComboBox->currentIndex() > 0)
+    QRegularExpression httpRegEx("https?://", QRegularExpression::CaseInsensitiveOption);
+    qDebug() << httpRegEx;
+
+    QRegularExpressionMatch match = httpRegEx.match(address);
+    qDebug() << match.hasMatch();
+    //set http scheme combo box based on address in.
+    if(match.captured(0).toLower() == QString("https://"))
     {
-        address = "https://" + address;
+        ui->schemeComboBox->setCurrentIndex(1);
+    }
+    else if(match.captured(0).toLower() == QString("http://"))
+    {
+        ui->schemeComboBox->setCurrentIndex(0);
     }
     else
     {
-        address = "http://" + address;
-    }
-
-    qDebug() << address;
-
-    //Format and attach url to network request.
-    QUrl url(address.toLatin1());
-    QNetworkRequest request(url);
-
-    //For each header, split on a : and attach to
-    //the request.
-    for(auto h : headerModel->stringList())
-    {
-        QStringList chunks = h.split(":");
-        QByteArray ba0 = chunks.value(0).toUtf8();
-        QByteArray ba1 = chunks.value(1).toUtf8();
-        request.setRawHeader(ba0, ba1);
-    }
-
-    QByteArray query = ui->queryInput->toPlainText().toUtf8();
-    QJsonDocument jDoc = QJsonDocument::fromJson(query);
-
-    QNetworkAccessManager nam;
-
-    if(ui->methodComboBox->currentIndex() == 1){
-        QNetworkReply *reply = nam.post(request, QJsonDocument(jDoc).toJson());
-
-        const clock_t begin_time = clock();
-
-        while(!reply->isFinished())
+        if(ui->schemeComboBox->currentIndex() > 0)
         {
-            qApp->processEvents();
+            address = "https://" + address;
         }
-
-        ui->responseTime->setText((QString::number((float( clock () - begin_time ) /  CLOCKS_PER_SEC) * 1000)) + "ms");
-
-        if (reply->error() == QNetworkReply::NoError) {
-            // communication was successful
-
-            msg = reply->readAll();
-
-            QJsonParseError err;
-            QJsonDocument jDoc = QJsonDocument::fromJson(QByteArray(msg.toUtf8()), &err);
-
-            //Give msg result to the JsonTreeVisualizer.
-            jsonModel->loadJson(QByteArray::fromStdString(jDoc.toJson(QJsonDocument::Compact).toStdString()));
-
-            //Give msg result to the textEditWidget.
-            ui->resultTextEdit->setText(jDoc.toJson(QJsonDocument::Indented));
-
-            //qDebug() << ui->resultTextEdit->toPlainText();
+        else
+        {
+            address = "http://" + address;
         }
-
-        else {
-            // an error occurred
-            msg = "Error: " + reply->errorString();
-            QMessageBox::information(this, "", msg);
-        }
-
-        reply->deleteLater();
     }
+
+    const clock_t begin_time = clock();
+
+    //QByteArray gmOut = netConct.postRequest(headers, address, body);
+    netConct->googleSheetsRead();
+
+    ui->responseTime->setText((QString::number((float( clock () - begin_time ) /  CLOCKS_PER_SEC) * 1000)) + "ms");
+
+    address.remove(httpRegEx);
+    ui->addressInput->setText(address);
 }
 
 void MainWindow::displayStringList(QStringList sl)
@@ -209,13 +144,4 @@ void MainWindow::displayStringList(QStringList sl)
         QMessageBox::information(this, "", message);
 }
 
-void MainWindow::debugReply()
-{
-    auto reply = google->get(QUrl("https://sheets.googleapis.com/v4/spreadsheets/1KA7c9bbG2p4f8SFe5ibbkIycwt0wukRe2_xpTB3SI6A/values/Monday"));
 
-    while(!reply->isFinished())
-        qApp->processEvents();
-
-    qDebug() << reply->readAll();
-    reply->deleteLater();
-}

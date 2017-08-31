@@ -30,7 +30,8 @@ SOURCES += main.cpp\
     simplecrypt.cpp \
     qjsonmodel.cpp \
     gmTypes/gm_i18nlocale.cpp \
-    gmTypes/gm_organization.cpp
+    gmTypes/gm_organization.cpp \
+    netconnect.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -40,7 +41,8 @@ HEADERS  += mainwindow.h \
     qjsonmodel.h \
     jsonTypes/jsonType.hpp \
     gmTypes/gm_i18nlocale.h \
-    gmTypes/gm_organization.h
+    gmTypes/gm_organization.h \
+    netconnect.h
 
 FORMS    += mainwindow.ui \
     authdialog.ui \

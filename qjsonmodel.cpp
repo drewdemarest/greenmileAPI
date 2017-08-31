@@ -115,7 +115,6 @@ QJsonTreeItem* QJsonTreeItem::load(const QJsonValue& value, QJsonTreeItem* paren
             rootItem->appendChild(child);
 
         }
-
     }
 
     else if ( value.isArray())

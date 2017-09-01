@@ -13,63 +13,70 @@ NetConnect::~NetConnect()
 
 QByteArray NetConnect::postRequest(QStringList &headers, QString &address, QString &body)
 {
-    // trigger the request - see the examples in the following sections
-    // stringReply in this case is the server response.
-
-    QString stringReply;
-    QJsonArray jsonReply;
-
-    //From UI
-    //QString address = ui->addressInput->text().toLatin1();
-
     qDebug() << address;
 
     //Format and attach url to network request.
     QUrl url(address.toLatin1());
     QNetworkRequest request(url);
+    QByteArray response;
+    QString errorStr;
 
     //For each header, split on a : and attach to
     //the request.
     for(auto h : headers)
     {
         QStringList chunks = h.split(":");
-        QByteArray ba0 = chunks.value(0).toUtf8();
-        QByteArray ba1 = chunks.value(1).toUtf8();
-        request.setRawHeader(ba0, ba1);
+        //Headers should only split into two chunks.
+        if(chunks.length() == 2)
+        {
+            //serialize headers
+            request.setRawHeader(QByteArray(chunks.value(0).toUtf8()), QByteArray(chunks.value(1).toUtf8()));
+        }
+        //If headers do not split into two chunks, complain and return empty QBtyeArray
+        else
+        {
+            errorStr =  "A header did not cleanly split into two parts,"
+                        " please verify integrity of your headers.";
+            emit networkError(errorStr);
+            return QByteArray();
+        }
     }
 
-
+    //Create a network access manager.
     QNetworkAccessManager nam;
 
-    //if(ui->methodComboBox->currentIndex() == 1){
+    //Send a post request with the network manager. nam.post returns a pointer. I find this to be an
+    //inconvenience and delete the post at the end of this function.
     QNetworkReply *reply = nam.post(request, QJsonDocument(QJsonDocument::fromJson(body.toUtf8())).toJson());
 
+    //While waiting on the server do not lock up the ui on main thread.
     while(!reply->isFinished())
     {
         qApp->processEvents();
     }
 
+    //If all went well, turn the reply into a bytearray.
     if (reply->error() == QNetworkReply::NoError) {
-        // communication was successful
-        qDebug() << reply->readAll();
+        response = reply->readAll();
     }
 
+    // an error occurred. emit a signal with the error message
+    // to any function that cares.
     else {
-        // an error occurred
-        stringReply = "Error: " + reply->errorString();
-        qDebug() << stringReply;
-        emit networkError(stringReply);
+        errorStr = "Error: " + reply->errorString();
+        qDebug() << errorStr;
+        emit networkError(errorStr);
         //QMessageBox::information(this, "", stringReply);
     }
 
-
     reply->deleteLater();
-    return QByteArray(reply->readAll());
+    return response;
 }
 
 void NetConnect::googleSheetsRead()
 {
     //oauth test begin
+
     if(!authGranted)
     {
     google->setScope("https://www.googleapis.com/auth/spreadsheets.readonly");
@@ -77,7 +84,6 @@ void NetConnect::googleSheetsRead()
     connect(google, &QOAuth2AuthorizationCodeFlow::authorizeWithBrowser,
         &QDesktopServices::openUrl);
 
-    const QJsonObject object = QJsonDocument::fromJson("{\"web\":{\"client_id\":\"721182423780-a2lo9n7aj1vvqhjo4gjt2q1bfeu39285.apps.googleusercontent.com\",\"project_id\":\"qtauthtest\",\"auth_uri\":\"https://accounts.google.com/o/oauth2/auth\",\"token_uri\":\"https://accounts.google.com/o/oauth2/token\",\"auth_provider_x509_cert_url\":\"https://www.googleapis.com/oauth2/v1/certs\",\"client_secret\":\"rwFKYSmuteyvmbBHVrjSUF-E\",\"redirect_uris\":[\"http://localhost:8080\"]}}").object();
     const auto settingsObject = object["web"].toObject();
 
     const QUrl authUri(settingsObject["auth_uri"].toString());
@@ -86,8 +92,7 @@ void NetConnect::googleSheetsRead()
     const auto clientSecret(settingsObject["client_secret"].toString());
     const auto redirectUris = settingsObject["redirect_uris"].toArray();
     const QUrl redirectUri(redirectUris[0].toString()); // Get the first URI
-    const auto port = static_cast<quint16>(redirectUri.port()); // ◙Get the port
-
+    const auto port = static_cast<quint16>(redirectUri.port()); // Get the port
 
     google->setAuthorizationUrl(authUri);
     google->setClientIdentifier(clientId);
@@ -99,8 +104,9 @@ void NetConnect::googleSheetsRead()
 
     google->setReplyHandler(replyHandler);
 
-    google->grant();
-
+    google->setToken("ya29.Glu5BI0UMGH0_99dLuWLKYK8l9CVaTFrloOZE78QZeZ1SpQR2PjYM4ymCiCQuMmNkcoebJI9MsEXNDMf9yOi7mzpaiULZUZm66RbOcoRCN_HTi2ngzYyxfbxYUW6");
+    debugReply();
+    //google->grant();
     connect(google, &QOAuth2AuthorizationCodeFlow::granted, this, &NetConnect::debugReply);
     }
     else
@@ -110,9 +116,12 @@ void NetConnect::googleSheetsRead()
 
 void NetConnect::debugReply()
 {
+    authGranted = true;
 
+    qDebug() << int(google->status());
+    qDebug() << QString(google->token());
+    qDebug() << google->authorizationUrl();
     auto reply = google->get(QUrl("https://sheets.googleapis.com/v4/spreadsheets/1KA7c9bbG2p4f8SFe5ibbkIycwt0wukRe2_xpTB3SI6A/values/Monday"));
-    qDebug() << "token:" << google->accessTokenUrl();
     while(!reply->isFinished())
         qApp->processEvents();
 

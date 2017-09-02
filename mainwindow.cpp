@@ -6,7 +6,8 @@ using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    netConct(new NetConnect),
+    netConct(new NetConnect(this)),
+    onetConn(new OAuthNetConnect(this)),
     headers(new QStringList),
     headerModel(new QStringListModel(this)),
     jsonModel(new QJsonModel),
@@ -67,8 +68,6 @@ void MainWindow::saveSettings()
     settings->setValue("method/httpMethod", ui->methodComboBox->currentIndex());
     settings->setValue("scheme/httpScheme", ui->schemeComboBox->currentIndex());
 
-    //writing items in the r_BadRouteLetterList to the file.
-
     int i = 0;
     settings->beginWriteArray("headerList");
     for(auto h : headerModel->stringList())
@@ -88,6 +87,7 @@ MainWindow::~MainWindow() {
     headerModel->deleteLater();
     jsonModel->deleteLater();
     netConct->deleteLater();
+    onetConn->deleteLater();
     //google test
     //google->deleteLater();
     delete headers;
@@ -96,15 +96,32 @@ MainWindow::~MainWindow() {
 
 void MainWindow::on_pushButton_clicked() {
 
-    QString address = ui->addressInput->text().toLatin1();
-    QString body = ui->queryInput->toPlainText();
-    QStringList headers = headerModel->stringList();
+    //QString address = ui->addressInput->text().toLatin1();
+    //QString body = ui->queryInput->toPlainText();
+    //QStringList headers = headerModel->stringList();
+    QString scope = "https://www.googleapis.com/auth/spreadsheets.readonly";
+    QString address = "https://sheets.googleapis.com/v4/spreadsheets/1KA7c9bbG2p4f8SFe5ibbkIycwt0wukRe2_xpTB3SI6A/values/Monday";
+    QString credFilePath = QString(QApplication::applicationDirPath() + "/client.json");
 
+
+    matchSchemeComboToWebAddress();
+    qDebug() << address;
+    const clock_t begin_time = clock();
+     //"https://sheets.googleapis.com/v4/spreadsheets/1KA7c9bbG2p4f8SFe5ibbkIycwt0wukRe2_xpTB3SI6A/values/Monday"
+    onetConn->buildOAuth(scope, address, credFilePath);
+    //QByteArray gmOut = netConct.postRequest(headers, address, body);
+    //netConct->googleSheetsRead();
+
+
+    ui->responseTime->setText((QString::number((float( clock () - begin_time ) /  CLOCKS_PER_SEC) * 1000)) + "ms");
+}
+
+void MainWindow::matchSchemeComboToWebAddress()
+{
+    QString address = ui->addressInput->text();
     QRegularExpression httpRegEx("https?://", QRegularExpression::CaseInsensitiveOption);
-    qDebug() << httpRegEx;
 
     QRegularExpressionMatch match = httpRegEx.match(address);
-    qDebug() << match.hasMatch();
     //set http scheme combo box based on address in.
     if(match.captured(0).toLower() == QString("https://"))
     {
@@ -126,15 +143,7 @@ void MainWindow::on_pushButton_clicked() {
         }
     }
 
-    const clock_t begin_time = clock();
-
-    //QByteArray gmOut = netConct.postRequest(headers, address, body);
-    netConct->googleSheetsRead();
-
-    ui->responseTime->setText((QString::number((float( clock () - begin_time ) /  CLOCKS_PER_SEC) * 1000)) + "ms");
-
-    address.remove(httpRegEx);
-    ui->addressInput->setText(address);
+    ui->addressInput->setText(address.remove(httpRegEx));
 }
 
 void MainWindow::displayStringList(QStringList sl)

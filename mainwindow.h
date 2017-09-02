@@ -11,6 +11,7 @@
 #include "simplecrypt.h"
 #include "gmTypes/gm_i18nlocale.h"
 #include "netconnect.h"
+#include "oauthnetconnect.h"
 
 namespace Ui {
 class MainWindow;
@@ -25,8 +26,9 @@ public:
     ~MainWindow();
 
 private:
-
     NetConnect *netConct;
+    OAuthNetConnect *onetConn;
+
     QStringList *headers;
     QStringListModel *headerModel;
     QJsonModel *jsonModel;
@@ -39,6 +41,7 @@ private:
     void initialise();
     void loadSettings();
     void saveSettings();
+    void matchSchemeComboToWebAddress();
 
 public slots:
     void displayStringList(QStringList sl);

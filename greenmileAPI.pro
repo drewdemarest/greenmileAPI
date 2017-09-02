@@ -31,7 +31,8 @@ SOURCES += main.cpp\
     qjsonmodel.cpp \
     gmTypes/gm_i18nlocale.cpp \
     gmTypes/gm_organization.cpp \
-    netconnect.cpp
+    netconnect.cpp \
+    oauthnetconnect.cpp
 
 
 HEADERS  += mainwindow.h \
@@ -42,7 +43,8 @@ HEADERS  += mainwindow.h \
     jsonTypes/jsonType.hpp \
     gmTypes/gm_i18nlocale.h \
     gmTypes/gm_organization.h \
-    netconnect.h
+    netconnect.h \
+    oauthnetconnect.h
 
 FORMS    += mainwindow.ui \
     authdialog.ui \

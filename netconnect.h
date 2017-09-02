@@ -4,9 +4,7 @@
 
 #include <QObject>
 #include <QtNetwork>
-#include <QDesktopServices>
-#include <QOAuth2AuthorizationCodeFlow>
-#include <QOAuthHttpServerReplyHandler>
+
 
 class NetConnect : public QObject
 {
@@ -15,19 +13,17 @@ public:
     explicit NetConnect(QObject *parent = nullptr);
     ~NetConnect();
 
-    QByteArray postRequest(QStringList &headers, QString &address, QString &body);
-    void googleSheetsRead();
+    QByteArray postRequest(const QStringList &headers,const QString &address, const QString &body);
+    void googleSheetsRead(const QString &scope, const QString &credentialFilePath);
 
 private:
-    QOAuth2AuthorizationCodeFlow *google = new QOAuth2AuthorizationCodeFlow;
-    bool authGranted = false;
+
 
 signals:
     void networkError(QString);
 
 public slots:
-private slots:
-    void debugReply();
+
 };
 
 #endif // NETCONNECT_H

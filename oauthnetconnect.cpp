@@ -27,8 +27,17 @@ OAuthNetConnect::~OAuthNetConnect()
 void OAuthNetConnect::buildOAuth(const QString &scope, const QString &address, const QString &credentialFilePath)
 {
     loadSettings();
-    this->address = address;
+    qDebug() << "build: token expires at" << tokenExpire.toString();
 
+    while(waitingForOauth)
+    {
+        usleep(1000);
+        qDebug() << "beep";
+        qApp->processEvents();
+    }
+
+    this->address = address;
+    qDebug() << oauth2NetworkAccess->dynamicPropertyNames();
     //temporary code-- for debuggin server replies
     //connect(oauth2NetworkAccess, &QOAuth2AuthorizationCodeFlow::granted, this, &NetConnect::debugReply);
 
@@ -52,8 +61,9 @@ void OAuthNetConnect::buildOAuth(const QString &scope, const QString &address, c
     oauth2NetworkAccess->setAccessTokenUrl(tokenUri);
     oauth2NetworkAccess->setClientIdentifierSharedKey(clientSecret);
 
-    if(tokenExpire < QDateTime::currentDateTime())
+    if(tokenExpire < QDateTime(QDateTime::currentDateTime()))
     {
+        qDebug() << "make reply handler?" << bool(tokenExpire < QDateTime::currentDateTime());
         auto replyHandler = new QOAuthHttpServerReplyHandler(port, this);
         oauth2NetworkAccess->setReplyHandler(replyHandler);
     }
@@ -62,18 +72,24 @@ void OAuthNetConnect::buildOAuth(const QString &scope, const QString &address, c
     qDebug() << "oauthTok null?"  << oauthToken.isNull() << "empty?" << oauthToken.isEmpty();
     if(oauthToken.isNull())
     {
+        qDebug() << "Here 1";
+        waitingForOauth = true;
         oauth2NetworkAccess->grant();
     }
     else if(tokenExpire < QDateTime::currentDateTime())
     {
+        qDebug() << "Here 2";
+        waitingForOauth = true;
         oauth2NetworkAccess->grant();
     }
     else
     {
+        qDebug() << "Here 3";
+        waitingForOauth = false;
         oauth2NetworkAccess->setToken(oauthToken);
     }
     //oauth2NetworkAccess->requestFailed();
-    debugReply();
+    //debugReply();
 
     //oauth2NetworkAccess->grant();
     //oauth test end
@@ -101,23 +117,52 @@ void OAuthNetConnect::loadSettings()
 {
     oauthToken = oauthSettings->value("oauth2/token").toString();
     tokenExpire = oauthSettings->value("oauth2/tokenExpire").toDateTime();
+    qDebug() << "null?" << tokenExpire.isNull() << "valid" << tokenExpire.isValid();
 }
 
 void OAuthNetConnect::saveSettings()
 {
+    qDebug() << "save: token expires at" << tokenExpire.toString();
     oauthSettings->setValue("oauth2/token", oauth2NetworkAccess->token());
-    oauthSettings->setValue("oauth2/tokenExpire", tokenExpire.toString());
+    oauthSettings->setValue("oauth2/tokenExpire", QVariant(tokenExpire));
 }
 
 QByteArray OAuthNetConnect::get()
 {
-    return QByteArray();
+    qDebug() << "before oauth" << waitingForOauth;
+
+    while(waitingForOauth)
+    {
+        usleep(1000);
+        qApp->processEvents();
+    }
+
+    qDebug() << "after oauth" << waitingForOauth;
+
+    QNetworkReply *reply = oauth2NetworkAccess->get(QUrl(address));
+    QByteArray replyCopy;
+
+    while(!reply->isFinished())
+    {
+        usleep(1000);
+        qApp->processEvents();
+    }
+
+    if(reply->errorString() == QNetworkReply::AuthenticationRequiredError)
+    {
+        qDebug() << "err1" << reply->errorString();
+        oauth2NetworkAccess->grant();
+    }
+    else
+        replyCopy = reply->readAll();
+
+    reply->deleteLater();
+    return replyCopy;
 }
 
 void OAuthNetConnect::debugReply()
 {
     //authGranted = true;
-
     qDebug() << int(oauth2NetworkAccess->status());
     qDebug() << QString(oauth2NetworkAccess->token());
     qDebug() << oauth2NetworkAccess->authorizationUrl();
@@ -133,21 +178,27 @@ void OAuthNetConnect::debugReply()
     }
     else
         qDebug() << reply->readAll();
-
     reply->deleteLater();
 }
 
 void OAuthNetConnect::oauthGranted()
 {
+    waitingForOauth = false;
+    qDebug() << "Auth granted, yaaay!";
     oauthToken = oauth2NetworkAccess->token();
     tokenExpire = oauth2NetworkAccess->expirationAt();
-    tokenExpire = oauthSettings->value("oauth2/tokenExpire").toDateTime();
-    oauthSettings->sync();
-    qDebug() << "Bonus tokens?" << oauth2NetworkAccess->extraTokens();
+    qDebug() << "granted: token expires at" << tokenExpire.toString();
     saveSettings();
+    oauthSettings->sync();
 }
 
 void OAuthNetConnect::oauthFailed()
 {
+    waitingForOauth = false;
+    qDebug() << "Failed.";
+}
 
+bool OAuthNetConnect::isWaitingForOauth()
+{
+    return waitingForOauth;
 }

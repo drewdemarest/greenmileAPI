@@ -1,6 +1,7 @@
 #ifndef OAUTHNETCONNECT_H
 #define OAUTHNETCONNECT_H
 
+#include <unistd.h>
 #include <QtCore>
 #include <QObject>
 #include <QtNetwork>
@@ -22,6 +23,7 @@ public:
     //functions
     void buildOAuth(const QString &scope, const QString &address, const QString &credentialFilePath);
     QByteArray get();
+    bool isWaitingForOauth();
 
 private:
     //members
@@ -30,6 +32,7 @@ private:
     QString oauthToken;
     QString address;
     QDateTime tokenExpire;
+    bool waitingForOauth = false;
 
     //functions
     QJsonObject readJsonCredentials(const QString &credentialFilePath);

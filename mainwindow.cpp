@@ -95,25 +95,47 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::on_pushButton_clicked() {
-
+    ui->queryButton->setEnabled(false);
+    QStringList sheetList;
     //QString address = ui->addressInput->text().toLatin1();
     //QString body = ui->queryInput->toPlainText();
     //QStringList headers = headerModel->stringList();
     QString scope = "https://www.googleapis.com/auth/spreadsheets.readonly";
-    QString address = "https://sheets.googleapis.com/v4/spreadsheets/1KA7c9bbG2p4f8SFe5ibbkIycwt0wukRe2_xpTB3SI6A/values/Monday";
+    //QString address = "https://sheets.googleapis.com/v4/spreadsheets/1KA7c9bbG2p4f8SFe5ibbkIycwt0wukRe2_xpTB3SI6A/values/Monday";
+
+    //Query workbook properties
+    QString address = "https://sheets.googleapis.com/v4/spreadsheets/1KA7c9bbG2p4f8SFe5ibbkIycwt0wukRe2_xpTB3SI6A?&fields=sheets.properties";
     QString credFilePath = QString(QApplication::applicationDirPath() + "/client.json");
 
-
     matchSchemeComboToWebAddress();
-    qDebug() << address;
-    const clock_t begin_time = clock();
-     //"https://sheets.googleapis.com/v4/spreadsheets/1KA7c9bbG2p4f8SFe5ibbkIycwt0wukRe2_xpTB3SI6A/values/Monday"
-    onetConn->buildOAuth(scope, address, credFilePath);
-    //QByteArray gmOut = netConct.postRequest(headers, address, body);
-    //netConct->googleSheetsRead();
 
+    const clock_t begin_time = clock();
+
+    onetConn->buildOAuth(scope, address, credFilePath);
+    QByteArray serverResponseBA = onetConn->get();
+    //qDebug() << serverResponseBA;
+
+    auto serverResponse = QJsonDocument::fromJson(serverResponseBA).object();
+    auto responseArray = serverResponse["sheets"].toArray();
+
+    for(auto t : responseArray)
+    {
+        sheetList.append(t.toObject()["properties"].toObject()["title"].toString());
+        qDebug() << sheetList;
+    }
+
+    for(auto t : sheetList)
+    {
+        address = "https://sheets.googleapis.com/v4/spreadsheets/1KA7c9bbG2p4f8SFe5ibbkIycwt0wukRe2_xpTB3SI6A/values/" + t;
+        onetConn->buildOAuth(scope, address, credFilePath);
+        qDebug() << onetConn->get();
+    }
+
+    //
+    //qDebug() << "arr size" << serverResponse["sheets"].toArray().size();
 
     ui->responseTime->setText((QString::number((float( clock () - begin_time ) /  CLOCKS_PER_SEC) * 1000)) + "ms");
+    ui->queryButton->setEnabled(true);
 }
 
 void MainWindow::matchSchemeComboToWebAddress()

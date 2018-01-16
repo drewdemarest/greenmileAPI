@@ -236,11 +236,6 @@
         </item>
        </layout>
       </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>Tab 2</string>
-       </attribute>
-      </widget>
      </widget>
     </item>
    </layout>
@@ -251,26 +246,9 @@
      <x>0</x>
      <y>0</y>
      <width>662</width>
-     <height>20</height>
+     <height>23</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
-    </property>
-    <addaction name="actionSave_Query"/>
-    <addaction name="actionLoad_Query"/>
-    <addaction name="actionQuit"/>
-   </widget>
-   <widget class="QMenu" name="menuTools">
-    <property name="title">
-     <string>Tools</string>
-    </property>
-    <addaction name="actionSettings"/>
-    <addaction name="actionUpload_Route"/>
-   </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuTools"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -283,27 +261,27 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionSave_Query">
    <property name="text">
-    <string>Save Query</string>
+    <string>&amp;Save Query</string>
    </property>
   </action>
   <action name="actionLoad_Query">
    <property name="text">
-    <string>Load Query</string>
+    <string>&amp;Load Query</string>
    </property>
   </action>
   <action name="actionQuit">
    <property name="text">
-    <string>Quit</string>
+    <string>&amp;Quit</string>
    </property>
   </action>
   <action name="actionSettings">
    <property name="text">
-    <string>Settings</string>
+    <string>&amp;Settings</string>
    </property>
   </action>
   <action name="actionUpload_Route">
    <property name="text">
-    <string>Upload Route</string>
+    <string>&amp;Upload Route</string>
    </property>
   </action>
  </widget>

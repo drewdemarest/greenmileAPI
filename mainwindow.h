@@ -9,7 +9,6 @@
 #include "headermgmt.h"
 #include "qjsonmodel.h"
 #include "simplecrypt.h"
-#include "gmTypes/gm_i18nlocale.h"
 #include "netconnect.h"
 #include "oauthnetconnect.h"
 

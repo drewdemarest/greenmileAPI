@@ -24,7 +24,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->queryButton, &QPushButton::clicked, this, &MainWindow::saveSettings);
     connect(ui->addHeaderButton, &QPushButton::clicked, headerDialog, &HeaderMGMT::show);
 
-    GM_I18NLocale test;
     //connect(headerDialog, SIGNAL(getRequestHeaders(QList<QString>*)), this, &MainWindow::updateHeaders);
 
 //    SimpleCrypt crypto(Q_UINT64_C(0x0c2ad4a4acb9f023)); //some random number

@@ -29,8 +29,6 @@ SOURCES += main.cpp\
     headermgmt.cpp \
     simplecrypt.cpp \
     qjsonmodel.cpp \
-    gmTypes/gm_i18nlocale.cpp \
-    gmTypes/gm_organization.cpp \
     netconnect.cpp \
     oauthnetconnect.cpp
 
@@ -40,9 +38,6 @@ HEADERS  += mainwindow.h \
     headermgmt.h \
     simplecrypt.h \
     qjsonmodel.h \
-    jsonTypes/jsonType.hpp \
-    gmTypes/gm_i18nlocale.h \
-    gmTypes/gm_organization.h \
     netconnect.h \
     oauthnetconnect.h
 
